@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SCHIZO CANDY SYNDICATE</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000);
+            background-size: 400% 400%;
+            animation: psychedelicBg 3s ease-in-out infinite;
+            overflow-x: hidden;
+            color: #fff;
+            position: relative;
+            min-height: 100vh; /* Ensure body covers at least the viewport height */
+            display: flex; /* Flexbox for main content flow */
+            flex-direction: column;
+        }
+        
+        @keyframes psychedelicBg {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+        
+        .static-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.1"/></svg>');
+            pointer-events: none;
+            animation: staticFlicker 0.1s infinite;
+            z-index: 1;
+        }
+        
+        @keyframes staticFlicker {
+            0%, 100% { opacity: 0.05; }
+            50% { opacity: 0.15; }
+        }
+        
+        .glitch-text {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 4rem;
+            text-align: center;
+            color: #00ff00;
+            text-shadow: 
+                2px 2px 0px #ff00ff,
+                -2px -2px 0px #00ffff,
+                4px 4px 0px #ffff00;
+            animation: glitch 0.5s infinite;
+            margin: 2rem 0;
+            z-index: 2;
+            position: relative;
+        }
+        
+        @keyframes glitch {
+            0%, 100% { transform: translate(0); }
+            10% { transform: translate(-2px, 2px); }
+            20% { transform: translate(2px, -2px); }
+            30% { transform: translate(-2px, -2px); }
+            40% { transform: translate(2px, 2px); }
+        }
+        
+        .hero-section {
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 2;
+            min-height: 50vh; /* Allow it to take up less than 100vh so content can be below */
+        }
+        
+        .peanut-hero {
+            width: 300px;
+            height: 400px;
+            background: url('https://raw.githubusercontent.com/Splendour921/image/main/candy_face.jpg') center/contain no-repeat;
+            animation: float 2s ease-in-out infinite, spin 10s linear infinite;
+            margin: 2rem 0;
+            filter: drop-shadow(0 0 20px #ff00ff) hue-rotate(90deg);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .subtitle {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.5rem;
+            color: #ffff00;
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 2rem;
+            animation: pulse 1s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+        
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 20px;
+            border: 3px solid #00ff00;
+            box-shadow: 0 0 50px #ff00ff;
+            position: relative;
+            z-index: 2;
+            flex-grow: 1; /* Allow content to push footer down */
+        }
+        
+        .description {
+            font-size: 1.2rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .features {
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            background: linear-gradient(45deg, #ff00ff, #00ffff);
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 10px;
+            font-weight: bold;
+            animation: rainbow 2s linear infinite;
+        }
+        
+        @keyframes rainbow {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .schizo-button {
+            display: block;
+            width: 350px;
+            height: 100px;
+            margin: 2rem auto;
+            background: linear-gradient(45deg, #ff0000, #ff00ff, #0000ff, #00ffff, #00ff00, #ffff00);
+            border: none;
+            border-radius: 40px;
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            animation: buttonPulse 0.5s infinite, colorShift 2s linear infinite;
+            box-shadow: 0 0 30px #ff00ff;
+            position: relative;
+            z-index: 3;
+        }
+        
+        @keyframes buttonPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+        
+        @keyframes colorShift {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+        
+        .schizo-button:hover {
+            animation: insanePulse 0.1s infinite;
+        }
+        
+        @keyframes insanePulse {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(2deg); }
+            50% { transform: scale(0.9) rotate(-2deg); }
+            75% { transform: scale(1.05) rotate(1deg); }
+            100% { transform: scale(1) rotate(0deg); }
+        }
+        
+        /* General Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.9); /* Darker overlay for prompts */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999; /* Higher z-index to cover everything */
+            animation: fadeIn 0.5s forwards;
+            opacity: 0;
+        }
+
+        .popup-overlay.hidden {
+            animation: fadeOut 0.5s forwards;
+            pointer-events: none; /* Disable interaction when hidden */
+        }
+
+        .popup-content {
+            background-color: rgba(0, 0, 0, 0.95);
+            border: 5px solid #00ff00;
+            box-shadow: 0 0 50px #ff00ff;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            animation: popupScaleIn 0.5s forwards;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow: auto;
+            color: #fff;
+        }
+
+        .popup-content.initial-prompt {
+            background-image: url('https://raw.githubusercontent.com/Splendour921/image/main/tongue_face.jpg'); /* Your chosen image for the main prompt */
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 400px; /* Give it some base size */
+            min-width: 400px;
+            padding: 20px;
+        }
+
+        .popup-content h2 {
+            font-family: 'Orbitron', monospace;
+            color: #ffff00;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px #000;
+            background-color: rgba(0, 0, 0, 0.6); /* Background for readability */
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .popup-content p {
+            font-family: 'Comic Neue', cursive;
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            background-color: rgba(0, 0, 0, 0.6); /* Background for readability */
+            padding: 10px 20px;
+            border-radius: 10px;
+        }
+
+        .popup-button {
+            padding: 15px 30px;
+            font-size: 1.5rem;
+            font-family: 'Orbitron', monospace;
+            background: linear-gradient(45deg, #ff0000, #ff00ff);
+            color: #fff;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
+        }
+
+        .popup-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(255, 0, 255, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        @keyframes popupScaleIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .warning {
+            background: rgba(255, 0, 0, 0.8);
+            padding: 1rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            border: 2px dashed #ffff00;
+            font-family: 'Comic Neue', cursive;
+            animation: warningBlink 1s infinite;
+        }
+        
+        @keyframes warningBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.8; }
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.8rem;
+            color: #888;
+            background: rgba(0, 0, 0, 0.9);
+            flex-shrink: 0; /* Prevent footer from shrinking */
+            margin-top: auto; /* Push footer to the bottom */
+        }
+        
+        .cry-for-help {
+            font-family: 'Comic Neue', cursive;
+            font-style: italic;
+            color: #ff00ff;
+            margin-top: 1rem;
+        }
+        
+        /* Floating memes will now be absolutely positioned and controlled by JS */
+        .floating-memes {
+            position: fixed;
+            font-size: 2rem;
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0.8; /* Slight transparency */
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Glow effect */
+        }
+        
+        .the-candy-knows {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            color: #ff0000;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.8rem;
+            opacity: 0;
+            animation: flickerMessage 5s infinite;
+            z-index: 5;
+        }
+        
+        @keyframes flickerMessage {
+            0%, 90%, 100% { opacity: 0; }
+            95% { opacity: 1; }
+        }
+
+        /* NEW: Bottom Left/Right Images */
+        .corner-image {
+            position: fixed;
+            width: 150px; /* Adjust size as needed */
+            height: 150px; /* Adjust size as needed */
+            background-size: contain;
+            background-repeat: no-repeat;
+            z-index: 10; /* Above other elements, but below popups */
+            filter: drop-shadow(0 0 10px #00ff00); /* A subtle glow */
+            animation: cornerImageFloat 5s ease-in-out infinite alternate, cornerImageRotate 10s linear infinite;
+        }
+
+        .corner-image.left {
+            bottom: 20px;
+            left: 20px;
+            background-image: url();
+            animation-delay: 0s; /* Start immediately */
+        }
+
+        .corner-image.right {
+            bottom: 20px;
+            right: 20px;
+            background-image: url();
+            animation-delay: 2s; /* Slightly delayed for variation */
+        }
+
+        @keyframes cornerImageFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes cornerImageRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        /* Initial Site Gate Overlay */
+       #initialGate {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                /* UPDATE THIS LINE WITH THE NEW IMAGE URL */
+                background: url('https://raw.githubusercontent.com/Splendour921/image/main/door_way.jpg') center/cover no-repeat; 
+                background-color: rgba(0, 0, 0, 0.9);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                z-index: 10000;
+                color: #fff;
+                text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+                animation: gateOpenGlitch 0.2s infinite;
+            }
+
+        @keyframes gateOpenGlitch {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(5deg); }
+        }
+
+        #initialGate.hidden {
+            animation: fadeOut 0.5s forwards;
+            pointer-events: none;
+        }
+
+        #initialGate h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3rem;
+            color: #00ff00;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff;
+        }
+
+        #initialGate p {
+            font-family: 'Comic Neue', cursive;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        #initialGate button {
+            background: linear-gradient(45deg, #ff0000, #ff00ff);
+            font-family: 'Orbitron', monospace;
+            font-size: 2rem;
+            padding: 20px 50px;
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 40px rgba(255, 0, 255, 0.9);
+            animation: buttonPulse 0.5s infinite;
+        }
+
+        #initialGate button:hover {
+            animation: insanePulse 0.1s infinite;
+        }
+    </style>
+</head>
+<body>
+    <div id="initialGate">
+        <h1>ACCESS GRANTED?</h1>
+        <p>Before you enter the Sugar Void, know that sanity is a construct. Are you ready to embrace the chaos?</p>
+        <button onclick="acceptGate()">ENTER THE VOID</button>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <div class="static-overlay"></div>
+        <div class="the-candy-knows">THE CANDY KNOWS</div>
+        
+        <div class="corner-image left"></div>
+        <div class="corner-image right"></div>
+
+        <div class="hero-section">
+            <h1 class="glitch-text">SCHIZO CANDY SYNDICATE</h1>
+            <div class="subtitle">THE MOST SCHIZO CANDY IN THE WORLD</div>
+            <div class="peanut-hero"></div>
+            <div class="subtitle">WELCOME TO THE SUGAR VOID.</div>
+        </div>
+        
+        <div class="content-section">
+            <div class="description">
+                Behold <strong>The Most Schizo Candy in the World</strong>—a confection forged in a glitchy dimension where peanuts grin, colors melt, and reality bends. 🍬🍬 🍫 🍭 🍬 🍫 🍭 This isn't your average treat; it's a portal to cosmic chaos, laced with Quantum Crunch and Chaos Syrup that rewires your brain. One bite, and you'll see pigeons plotting, hear static whispers, and dance to interdimensional beats.
+            </div>
+            
+            <h2 style="color: #00ff00; text-align: center; margin: 2rem 0; font-family: 'Orbitron', monospace;">WHAT MAKES IT SCHIZO?</h2>
+            
+            <div class="features">
+                <div class="feature-item">🌈 <strong>Neon Panic:</strong> A flavor that glows and hums at 432 Hz.</div>
+                <div class="feature-item">📡 <strong>Tinfoil Twist:</strong> Tastes like conspiracy and static.</div>
+                <div class="feature-item">💀 <strong>Dread Drop:</strong> Melts your mind into a meme spiral.</div>
+            </div>
+            
+            <div style="text-align: center; margin: 2rem 0;">
+                <strong style="color: #ffff00;">EFFECTS:</strong> Spontaneous moonwalking, X-worthy freakouts, and a sudden urge to decode Bigfoot's tweets. Share your trip with #SchizoSugarRush.
+            </div>
+            
+            <button class="schizo-button" onclick="activateSchizo()">
+                🍬 GET YOURS NOW 🍬<br>
+                <small>(if it works, you're chosen)</small>
+            </button>
+            
+            <div class="warning">
+                ⚠️ <strong>WARNING:</strong> The candy watches. Side effects may include time loops and alien abductions. Each wrapper hides a QR code to secret X threads.
+            </div>
+        </div>
+        
+        <div class="popup-overlay hidden" id="seuePopupContainer">
+            <div class="popup-content">
+                <h2>SEUE SEUE SEUE!</h2>
+                <p>You have been chosen. The candy has seen you. Prepare for the ultimate sugar rush.</p>
+                <button class="popup-button" onclick="hidePopup('seuePopupContainer')">ACCEPT FATE</button>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div>SCHIZO CANDY SYNDICATE © 2025 | All rights reserved in this dimension and 47 parallel universes</div>
+            <div class="cry-for-help">This isn't marketing, it's a cry for help.</div>
+        </div>
+    </div> 
+    <audio id="backgroundMusic" loop>
+        <source src="solocyb-music-Glitch-City.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <script>
+        let audioContext;
+        let isPlaying = false; // Tracks if the chaotic sound is playing
+        const backgroundMusic = document.getElementById('backgroundMusic');
+
+        // Array to hold all active floating emoji objects
+        const floatingEmojis = [];
+        const emojiList =  [
+                    '🍬', // Candy - essential!
+                    '🍫', // More candy
+                    '🍭', // Even more candy
+                    '🍩', // Another sweet treat
+                    '🤪', // Crazy/Schizo
+                    '🤯', // Mind-blown, brain rewiring
+                    '😵‍💫',// Dizzy, disoriented, reality bending
+                    '🫠', // Melting face - perfect for "colors melt" and reality bending
+                    '👁️', // Eye - watching, unsettling, seeing things
+                    '👀', // Eyes - for the "candy watches" and plotting
+                    '👁️‍🗨️',// Eye in speech bubble - for static whispers, hidden messages
+                    '🌀', // Swirl, vortex, mental chaos
+                    '⚡', // Electric, chaotic energy
+                    '👾', // Alien monster/glitch, alien abductions
+                    '❓', // Confusion, questions of reality
+                    '❕', // Exclamation, sudden realizations
+                    '👽', // Aliens, alien abductions
+                    '🛸', // UFO, alien abductions
+                    '🌟', // Star, cosmic elements
+                    '💫', // Dizzying, shimmering, cosmic
+                    '🥜', // The Peanut Hero!
+                    '🌈', // Psychedelic, melting colors
+                    '💊', // Rewires your brain, chaos syrup effects
+                    '☠️', // Skull - Dread Drop, unsettling
+                    '👻', // Ghost - spectral whispers, unsettling
+                    '⏳', // Hourglass - Time loops
+                    '🔮', // Mystical, unpredictable effects
+                    '🎭'  // Masks/Theater - reality as a performance, hidden truths
+                ]; // Combined list
+
+        // Function to handle the initial gate acceptance
+        function acceptGate() {
+            const initialGate = document.getElementById('initialGate');
+            const mainContent = document.getElementById('mainContent');
+
+            // Hide the gate with animation
+            initialGate.classList.add('hidden');
+            
+            // Show main content after the fade-out
+            setTimeout(() => {
+                initialGate.style.display = 'none';
+                mainContent.style.display = 'block'; // Show the main content
+
+                // Attempt to play background music on user interaction
+                if (backgroundMusic) {
+                    backgroundMusic.volume = 0.3; // Set a subtle volume
+                    backgroundMusic.play().catch(error => {
+                        console.log("Background music autoplay prevented:", error);
+                        // If autoplay is still prevented, consider adding a small sound icon/button
+                        // for the user to manually enable music, or a message.
+                    });
+                }
+
+                // Initialize AudioContext and ensure it's resumed for Web Audio API sounds
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                // Attempt to resume audio context if it starts suspended (common on some browsers)
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume().then(() => {
+                        console.log('AudioContext resumed successfully after gate entry.');
+                    }).catch(err => {
+                        console.error('Error resuming AudioContext:', err);
+                    });
+                }
+                
+                // Start spawning floating memes periodically once main content is visible
+                setInterval(createFloatingMeme, 300); // Spawn a new meme every 300ms
+
+                // Start the animation loop for the emojis
+                animateEmojis();
+
+            }, 500); // Matches the fadeOut animation duration
+        }
+        
+        function activateSchizo() {
+            showPopup('seuePopupContainer'); // Show the first popup
+            
+            // Ensure AudioContext is resumed before playing chaotic sound
+            if (audioContext && audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                    console.log('AudioContext resumed successfully for schizo sound.');
+                    if (!isPlaying) {
+                        playSchizophrenicSound();
+                        isPlaying = true;
+                    }
+                }).catch(err => {
+                    console.error('Error resuming AudioContext for schizo sound:', err);
+                });
+            } else if (!isPlaying) {
+                // If AudioContext is already running or not yet created, just play
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                playSchizophrenicSound();
+                isPlaying = true;
+            }
+            
+            // Add more floating memes immediately on schizo activation
+            for (let i = 0; i < 20; i++) { // Spawn 20 more on click
+                setTimeout(() => {
+                    createFloatingMeme();
+                }, i * 100); // Faster spawning on click
+            }
+        }
+        
+        function playSchizophrenicSound() {
+            // Check if audioContext is properly initialized and not null/undefined
+            if (!audioContext) {
+                console.error("AudioContext is not initialized. Cannot play schizophrenic sound.");
+                return;
+            }
+
+            // A short burst of chaotic sound
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+            oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.5);
+            oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 1);
+            
+            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 1);
+            
+            const noise = audioContext.createOscillator();
+            const noiseGain = audioContext.createGain();
+            noise.connect(noiseGain);
+            noiseGain.connect(audioContext.destination);
+            
+            // Use different frequencies for more varied noise bursts
+            noise.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
+            noiseGain.gain.setValueAtTime(0.05, audioContext.currentTime);
+            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
+            
+            noise.start(audioContext.currentTime);
+            noise.stop(audioContext.currentTime + 0.3);
+
+            setTimeout(() => { isPlaying = false; }, 1000); // Allow sound to play again after 1 second
+        }
+        
+        function createFloatingMeme() {
+            const meme = document.createElement('div');
+            meme.className = 'floating-memes';
+            meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+            
+            const size = 20 + Math.random() * 40; // Emoji size between 20px and 60px
+            meme.style.fontSize = size + 'px';
+
+            // Initial random position
+            meme.x = Math.random() * (window.innerWidth - size);
+            meme.y = Math.random() * (window.innerHeight - size);
+
+            meme.style.left = meme.x + 'px';
+            meme.style.top = meme.y + 'px';
+
+            // Random speed and direction
+            // Increased speed range for more movement
+            meme.speedX = (Math.random() - 0.5) * (3 + Math.random() * 5); // Speed between -4 and 4
+            meme.speedY = (Math.random() - 0.5) * (3 + Math.random() * 5);
+
+            meme.rotation = Math.random() * 360; // Initial random rotation
+            meme.rotationSpeed = (Math.random() - 0.5) * 2; // Rotation speed
+
+            document.body.appendChild(meme);
+            floatingEmojis.push(meme); // Add to the array for animation
+
+            // Remove memes after some time to prevent too many elements
+            setTimeout(() => {
+                const index = floatingEmojis.indexOf(meme);
+                if (index > -1) {
+                    floatingEmojis.splice(index, 1);
+                }
+                if (meme.parentNode) {
+                    document.body.removeChild(meme);
+                }
+            }, 15000 + Math.random() * 10000); // Emojis last between 15 and 25 seconds
+        }
+
+        // Animation loop for floating emojis
+        function animateEmojis() {
+            floatingEmojis.forEach(meme => {
+                // Update position
+                meme.x += meme.speedX;
+                meme.y += meme.speedY;
+
+                // Bounce off walls
+                if (meme.x + meme.offsetWidth > window.innerWidth || meme.x < 0) {
+                    meme.speedX *= -1;
+                    meme.x = Math.max(0, Math.min(meme.x, window.innerWidth - meme.offsetWidth)); // Keep within bounds
+                }
+                if (meme.y + meme.offsetHeight > window.innerHeight || meme.y < 0) {
+                    meme.speedY *= -1;
+                    meme.y = Math.max(0, Math.min(meme.y, window.innerHeight - meme.offsetHeight)); // Keep within bounds
+                }
+
+                // Update rotation
+                meme.rotation += meme.rotationSpeed;
+
+                // Apply new styles
+                meme.style.left = meme.x + 'px';
+                meme.style.top = meme.y + 'px';
+                meme.style.transform = `rotate(${meme.rotation}deg)`;
+            });
+
+            requestAnimationFrame(animateEmojis); // Loop the animation
+        }
+        
+        // Functions to show/hide generic popups (not the initial gate)
+        function showPopup(id) {
+            const popup = document.getElementById(id);
+            if (popup) {
+                popup.classList.remove('hidden');
+                popup.style.display = 'flex'; // Use flex for centering
+            }
+        }
+
+        function hidePopup(id) {
+            const popup = document.getElementById(id);
+            if (popup) {
+                popup.classList.add('hidden');
+                setTimeout(() => {
+                    popup.style.display = 'none';
+                }, 500); // Match fadeOut animation duration
+            }
+        }
+
+        // Random chaos events (hue rotation)
+        setInterval(() => {
+            if (Math.random() < 0.1) {
+                document.body.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+                setTimeout(() => {
+                    document.body.style.filter = 'none';
+                }, 100);
+            }
+        }, 2000);
+        
+        // Hide main content initially when the page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('mainContent').style.display = 'none';
+            document.getElementById('seuePopupContainer').style.display = 'none';
+        });
+
+    </script>
+</body>
+</html>

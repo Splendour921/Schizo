@@ -573,7 +573,7 @@
             .the-candy-knows {
                 font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
             }
-        </div>
+        }
     </style>
 </head>
 <body>
@@ -838,48 +838,42 @@
 
             // Remove memes after some time to prevent too many elements
             setTimeout(() => {
-                const index = floatingEmojis.indexOf(meme);
-                if (index > -1) {
-                    floatingEmojis.splice(index, 1);
-                }
-                if (meme.parentNode) {
-                    document.body.removeChild(meme);
-                }
-            }, 15000 + Math.random() * 10000); // Emojis last between 15 and 25 seconds
+                meme.remove();
+                floatingEmojis.splice(floatingEmojis.indexOf(meme), 1); // Remove from array
+            }, 10000); // Remove after 10 seconds
         }
 
-        // Animation loop for floating emojis
         function animateEmojis() {
             floatingEmojis.forEach(meme => {
-                // Update position
                 meme.x += meme.speedX;
                 meme.y += meme.speedY;
-
-                // Bounce off walls
-                if (meme.x + meme.offsetWidth > window.innerWidth || meme.x < 0) {
-                    meme.speedX *= -1;
-                    meme.x = Math.max(0, Math.min(meme.x, window.innerWidth - meme.offsetWidth)); // Keep within bounds
-                }
-                if (meme.y + meme.offsetHeight > window.innerHeight || meme.y < 0) {
-                    meme.speedY *= -1;
-                    meme.y = Math.max(0, Math.min(meme.y, window.innerHeight - meme.offsetHeight)); // Keep within bounds
-                }
-
-                // Update rotation
                 meme.rotation += meme.rotationSpeed;
-                meme.style.transform = `translate(${meme.x}px, ${meme.y}px) rotate(${meme.rotation}deg)`;
+
+                // Wrap around screen edges
+                if (meme.x > window.innerWidth) meme.x = -meme.offsetWidth;
+                if (meme.x < -meme.offsetWidth) meme.x = window.innerWidth;
+                if (meme.y > window.innerHeight) meme.y = -meme.offsetHeight;
+                if (meme.y < -meme.offsetHeight) meme.y = window.innerHeight;
+
+                meme.style.left = meme.x + 'px';
+                meme.style.top = meme.y + 'px';
+                meme.style.transform = `rotate(${meme.rotation}deg)`;
             });
-
-            requestAnimationFrame(animateEmojis); // Continue the loop
+            requestAnimationFrame(animateEmojis);
         }
 
-        // Popup Functions
-        function showPopup(id) {
-            document.getElementById(id).classList.remove('hidden');
+        function showPopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.remove('hidden');
+            }
         }
 
-        function hidePopup(id) {
-            document.getElementById(id).classList.add('hidden');
+        function hidePopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.add('hidden');
+            }
         }
     </script>
 </body>

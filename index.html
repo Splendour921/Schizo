@@ -154,7 +154,7 @@
             100% { filter: hue-rotate(360deg); }
         }
         
-        .schizo-button {
+        .schizo-button, .tiktok-button {
             display: block;
             width: 350px;
             height: 100px;
@@ -171,6 +171,11 @@
             box-shadow: 0 0 30px #ff00ff;
             position: relative;
             z-index: 3;
+            text-decoration: none; /* For the TikTok link button */
+            display: flex; /* For centering text/icon inside the button */
+            justify-content: center;
+            align-items: center;
+            gap: 10px; /* Space between text and icon */
         }
         
         @keyframes buttonPulse {
@@ -183,7 +188,7 @@
             100% { filter: hue-rotate(360deg); }
         }
         
-        .schizo-button:hover {
+        .schizo-button:hover, .tiktok-button:hover {
             animation: insanePulse 0.1s infinite;
         }
         
@@ -193,6 +198,19 @@
             50% { transform: scale(0.9) rotate(-2deg); }
             75% { transform: scale(1.05) rotate(1deg); }
             100% { transform: scale(1) rotate(0deg); }
+        }
+
+        /* TikTok button specific styles */
+        .tiktok-button {
+            background: linear-gradient(45deg, #69C9D0, #EE1D52); /* TikTok brand colors */
+            box-shadow: 0 0 30px #EE1D52;
+            margin-top: 1rem; /* Adjust margin if needed */
+        }
+
+        .tiktok-icon {
+            width: 30px; /* Size of the TikTok icon */
+            height: 30px;
+            /* You can add an SVG or background-image for a custom icon here */
         }
         
         /* General Popup Styles */
@@ -395,23 +413,23 @@
 
         /* Initial Site Gate Overlay */
        #initialGate {
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                /* UPDATE THIS LINE WITH THE NEW IMAGE URL */
-                background: url('https://raw.githubusercontent.com/Splendour921/image/main/door_way.jpg') center/cover no-repeat; 
-                background-color: rgba(0, 0, 0, 0.9);
-                display: flex;
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-                color: #fff;
-                text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
-                animation: gateOpenGlitch 0.2s infinite;
-            }
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* UPDATE THIS LINE WITH THE NEW IMAGE URL */
+            background: url('https://raw.githubusercontent.com/Splendour921/image/main/door_way.jpg') center/cover no-repeat; 
+            background-color: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+            animation: gateOpenGlitch 0.2s infinite;
+        }
 
         @keyframes gateOpenGlitch {
             0%, 100% { filter: hue-rotate(0deg); }
@@ -491,7 +509,7 @@
                 margin: 0.8rem 0;
             }
 
-            .schizo-button {
+            .schizo-button, .tiktok-button {
                 width: 280px; /* Smaller button width */
                 height: 80px; /* Smaller button height */
                 font-size: 1.2rem; /* Smaller button text */
@@ -600,6 +618,11 @@
                 🍬 GET YOURS NOW 🍬<br>
                 <small>(if it works, you're chosen)</small>
             </button>
+
+            <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button">
+                <img src="https://www.tiktok.com/favicon.ico" alt="TikTok Icon" class="tiktok-icon">
+                FOLLOW US ON TIKTOK
+            </a>
             
             <div class="warning">
                 ⚠️ <strong>WARNING:</strong> The candy watches. Side effects may include time loops and alien abductions. Each wrapper hides a QR code to secret X threads.
@@ -835,51 +858,20 @@
 
                 // Update rotation
                 meme.rotation += meme.rotationSpeed;
-
-                // Apply new styles
-                meme.style.left = meme.x + 'px';
-                meme.style.top = meme.y + 'px';
-                meme.style.transform = `rotate(${meme.rotation}deg)`;
+                meme.style.transform = `translate(${meme.x}px, ${meme.y}px) rotate(${meme.rotation}deg)`;
             });
 
-            requestAnimationFrame(animateEmojis); // Loop the animation
+            requestAnimationFrame(animateEmojis); // Continue the loop
         }
-        
-        // Functions to show/hide generic popups (not the initial gate)
+
+        // Popup Functions
         function showPopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                popup.classList.remove('hidden');
-                popup.style.display = 'flex'; // Use flex for centering
-            }
+            document.getElementById(id).classList.remove('hidden');
         }
 
         function hidePopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                popup.classList.add('hidden');
-                setTimeout(() => {
-                    popup.style.display = 'none';
-                }, 500); // Match fadeOut animation duration
-            }
+            document.getElementById(id).classList.add('hidden');
         }
-
-        // Random chaos events (hue rotation)
-        setInterval(() => {
-            if (Math.random() < 0.1) {
-                document.body.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
-                setTimeout(() => {
-                    document.body.style.filter = 'none';
-                }, 100);
-            }
-        }, 2000);
-        
-        // Hide main content initially when the page loads
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('mainContent').style.display = 'none';
-            document.getElementById('seuePopupContainer').style.display = 'none';
-        });
-
     </script>
 </body>
 </html>

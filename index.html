@@ -573,7 +573,7 @@
             .the-candy-knows {
                 font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
             }
-        }
+        </div>
     </style>
 </head>
 <body>
@@ -619,7 +619,7 @@
                 <small>(if it works, you're chosen)</small>
             </button>
 
-            <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button">
+            <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button" onclick="stopBackgroundMusic()">
                 <img src="https://www.tiktok.com/favicon.ico" alt="TikTok Icon" class="tiktok-icon">
                 FOLLOW US ON TIKTOK
             </a>
@@ -651,6 +651,15 @@
         let audioContext;
         let isPlaying = false; // Tracks if the chaotic sound is playing
         const backgroundMusic = document.getElementById('backgroundMusic');
+
+        // Function to stop the background music
+        function stopBackgroundMusic() {
+            if (backgroundMusic) {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0; // Reset to the beginning
+                console.log("Background music stopped.");
+            }
+        }
 
         // Array to hold all active floating emoji objects
         const floatingEmojis = [];

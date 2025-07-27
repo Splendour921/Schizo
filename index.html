@@ -11,8 +11,8 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }  
-        body {A
+        }
+        body {
             font-family: 'Arial', sans-serif;
             background: linear-gradient(45deg, #ff00ff, #00ffff, #ffff00, #ff0000);
             background-size: 400% 400%;
@@ -84,8 +84,8 @@
         }
         
         .peanut-hero {
-            width: 200px;
-            height: 267px;
+            width: 300px;
+            height: 400px;
             background: url('https://raw.githubusercontent.com/Splendour921/image/main/candy_face.jpg') center/contain no-repeat;
             animation: float 2s ease-in-out infinite, spin 10s linear infinite;
             margin: 2rem 0;
@@ -456,6 +456,106 @@
         #initialGate button:hover {
             animation: insanePulse 0.1s infinite;
         }
+
+        /* --- Media Queries for Phones (max-width: 768px) --- */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 2.5rem; /* Smaller text for main heading on phones */
+                margin-top: 1rem;
+            }
+
+            .peanut-hero {
+                width: 150px; /* Reduced size for middle image on phones */
+                height: 200px; /* Reduced size for middle image on phones */
+                margin: 1rem 0; /* Adjust vertical margin */
+            }
+
+            .subtitle {
+                font-size: 1.2rem; /* Smaller subtitle on phones */
+                margin-bottom: 1rem;
+            }
+
+            .content-section {
+                padding: 1rem; /* Smaller padding for content section */
+                margin: 1rem; /* Add some margin to the sides */
+            }
+
+            .description {
+                font-size: 1rem; /* Smaller description text */
+                margin-bottom: 1.5rem;
+            }
+
+            .feature-item {
+                font-size: 0.9rem; /* Smaller feature text */
+                padding: 0.8rem;
+                margin: 0.8rem 0;
+            }
+
+            .schizo-button {
+                width: 280px; /* Smaller button width */
+                height: 80px; /* Smaller button height */
+                font-size: 1.2rem; /* Smaller button text */
+                margin: 1.5rem auto;
+                padding: 10px 20px; /* Adjust padding */
+            }
+
+            .warning {
+                padding: 0.8rem;
+                margin: 1.5rem 0;
+                font-size: 0.9rem;
+            }
+
+            /* Initial Gate Adjustments */
+            #initialGate h1 {
+                font-size: 2rem; /* Smaller "ACCESS GRANTED?" text on phones */
+                margin-bottom: 20px; /* Reduced margin below the text */
+                margin-top: -80px; /* Move "ACCESS GRANTED?" further up */
+            }
+
+            #initialGate p {
+                font-size: 1rem; /* Smaller paragraph text on phones */
+                margin-bottom: 20px; /* Reduced margin below paragraph */
+                padding: 0 10px;
+            }
+
+            #initialGate button {
+                font-size: 1.5rem; /* Smaller button text on phones */
+                padding: 15px 30px; /* Smaller button padding */
+            }
+
+            .popup-content.initial-prompt {
+                min-height: 300px; /* Make the initial prompt slightly smaller */
+                min-width: unset; /* Remove min-width to allow flexible shrinking */
+                width: 90%; /* Take up more width on smaller screens */
+            }
+
+            .popup-content h2 {
+                font-size: 1.5rem; /* Smaller popup heading */
+                padding: 8px 15px;
+            }
+
+            .popup-content p {
+                font-size: 1rem; /* Smaller popup paragraph */
+                padding: 8px 15px;
+            }
+
+            .popup-button {
+                font-size: 1.2rem; /* Smaller popup button text */
+                padding: 10px 20px;
+            }
+
+            .corner-image {
+                width: 100px; /* Smaller corner images */
+                height: 100px;
+                bottom: 10px;
+                left: 10px;
+                right: 10px;
+            }
+
+            .the-candy-knows {
+                font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
+            }
+        }
     </style>
 </head>
 <body>
@@ -518,7 +618,7 @@
             <div>SCHIZO CANDY SYNDICATE © 2025 | All rights reserved in this dimension and 47 parallel universes</div>
             <div class="cry-for-help">This isn't marketing, it's a cry for help.</div>
         </div>
-    </div> 
+    </div>
     <audio id="backgroundMusic" loop>
         <source src="solocyb-music-Glitch-City.mp3" type="audio/mpeg">
         Your browser does not support the audio element.
@@ -531,36 +631,36 @@
 
         // Array to hold all active floating emoji objects
         const floatingEmojis = [];
-        const emojiList =  [
-                    '🍬', // Candy - essential!
-                    '🍫', // More candy
-                    '🍭', // Even more candy
-                    '🍩', // Another sweet treat
-                    '🤪', // Crazy/Schizo
-                    '🤯', // Mind-blown, brain rewiring
-                    '😵‍💫',// Dizzy, disoriented, reality bending
-                    '🫠', // Melting face - perfect for "colors melt" and reality bending
-                    '👁️', // Eye - watching, unsettling, seeing things
-                    '👀', // Eyes - for the "candy watches" and plotting
-                    '👁️‍🗨️',// Eye in speech bubble - for static whispers, hidden messages
-                    '🌀', // Swirl, vortex, mental chaos
-                    '⚡', // Electric, chaotic energy
-                    '👾', // Alien monster/glitch, alien abductions
-                    '❓', // Confusion, questions of reality
-                    '❕', // Exclamation, sudden realizations
-                    '👽', // Aliens, alien abductions
-                    '🛸', // UFO, alien abductions
-                    '🌟', // Star, cosmic elements
-                    '💫', // Dizzying, shimmering, cosmic
-                    '🥜', // The Peanut Hero!
-                    '🌈', // Psychedelic, melting colors
-                    '💊', // Rewires your brain, chaos syrup effects
-                    '☠️', // Skull - Dread Drop, unsettling
-                    '👻', // Ghost - spectral whispers, unsettling
-                    '⏳', // Hourglass - Time loops
-                    '🔮', // Mystical, unpredictable effects
-                    '🎭'  // Masks/Theater - reality as a performance, hidden truths
-                ]; // Combined list
+        const emojiList = [
+            '🍬', // Candy - essential!
+            '🍫', // More candy
+            '🍭', // Even more candy
+            '🍩', // Another sweet treat
+            '🤪', // Crazy/Schizo
+            '🤯', // Mind-blown, brain rewiring
+            '😵‍💫',// Dizzy, disoriented, reality bending
+            '🫠', // Melting face - perfect for "colors melt" and reality bending
+            '👁️', // Eye - watching, unsettling, seeing things
+            '👀', // Eyes - for the "candy watches" and plotting
+            '👁️‍🗨️',// Eye in speech bubble - for static whispers, hidden messages
+            '🌀', // Swirl, vortex, mental chaos
+            '⚡', // Electric, chaotic energy
+            '👾', // Alien monster/glitch, alien abductions
+            '❓', // Confusion, questions of reality
+            '❕', // Exclamation, sudden realizations
+            '👽', // Aliens, alien abductions
+            '🛸', // UFO, alien abductions
+            '🌟', // Star, cosmic elements
+            '💫', // Dizzying, shimmering, cosmic
+            '🥜', // The Peanut Hero!
+            '🌈', // Psychedelic, melting colors
+            '💊', // Rewires your brain, chaos syrup effects
+            '☠️', // Skull - Dread Drop, unsettling
+            '👻', // Ghost - spectral whispers, unsettling
+            '⏳', // Hourglass - Time loops
+            '🔮', // Mystical, unpredictable effects
+            '🎭'  // Masks/Theater - reality as a performance, hidden truths
+        ]; // Combined list
 
         // Function to handle the initial gate acceptance
         function acceptGate() {

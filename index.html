@@ -1,721 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHIZO CANDY SYNDICATE</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap');
-        
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Arial', sans-serif;
-            overflow-x: hidden;
-            color: #fff;
-            position: relative;
-            min-height: 100vh; /* Ensure body covers at least the viewport height */
-            display: flex; /* Flexbox for main content flow */
-            flex-direction: column;
-        }
-
-        /* NEW: Pseudo-element for vibrating background image */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://raw.githubusercontent.com/Splendour921/image/main/glitchyI.jpg') center/cover no-repeat fixed;
-            z-index: -1; /* Place it behind all content */
-            animation: backgroundVibrate 0.1s infinite alternate; /* More frequent for vibration */
-            
-            /* IMPORTANT: Add translateZ(0) for mobile hardware acceleration */
-            transform: translateZ(0); 
-            -webkit-transform: translateZ(0); /* Webkit prefix */
-            
-            /* Initial state for filter animation */
-            filter: brightness(1) hue-rotate(0deg); 
-            -webkit-filter: brightness(1) hue-rotate(0deg); /* Webkit prefix */
-
-            /* Add -webkit- prefix for older Safari/iOS compatibility for animation */
-            -webkit-animation: backgroundVibrate 0.1s infinite alternate;
-        }
-        
-        @keyframes backgroundVibrate {
-            0% { 
-                transform: translate3d(0.5px, 0.5px, 0); 
-                filter: brightness(1) hue-rotate(0deg); 
-            }
-            25% { 
-                transform: translate3d(-0.5px, -0.5px, 0); 
-                filter: brightness(1.01) hue-rotate(0.5deg); 
-            }
-            50% { 
-                transform: translate3d(0.5px, -0.5px, 0); 
-                filter: brightness(1) hue-rotate(-0.5deg); 
-            }
-            75% { 
-                transform: translate3d(-0.5px, 0.5px, 0); 
-                filter: brightness(1.01) hue-rotate(0.5deg); 
-            }
-            100% { 
-                transform: translate3d(0.5px, 0.5px, 0); 
-                filter: brightness(1) hue-rotate(0deg); 
-            }
-        }
-
-        /* NEW: Add -webkit- prefixed keyframes for backgroundVibrate */
-        @-webkit-keyframes backgroundVibrate {
-            0% { 
-                -webkit-transform: translate3d(0.5px, 0.5px, 0); 
-                -webkit-filter: brightness(1) hue-rotate(0deg); 
-            }
-            25% { 
-                -webkit-transform: translate3d(-0.5px, -0.5px, 0); 
-                -webkit-filter: brightness(1.01) hue-rotate(0.5deg); 
-            }
-            50% { 
-                -webkit-transform: translate3d(0.5px, -0.5px, 0); 
-                -webkit-filter: brightness(1) hue-rotate(-0.5deg); 
-            }
-            75% { 
-                -webkit-transform: translate3d(-0.5px, 0.5px, 0); 
-                -webkit-filter: brightness(1.01) hue-rotate(0.5deg); 
-            }
-            100% { 
-                -webkit-transform: translate3d(0.5px, 0.5px, 0); 
-                -webkit-filter: brightness(1) hue-rotate(0deg); 
-            }
-        }
-
-        @keyframes psychedelicBg { /* This animation is no longer actively used for body background but kept if needed elsewhere */
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-        
-        .static-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.1"/></svg>');
-            pointer-events: none;
-            animation: staticFlicker 0.1s infinite;
-            z-index: 1; /* Ensure this is above the new background pseudo-element */
-        }
-        
-        @keyframes staticFlicker {
-            0%, 100% { opacity: 0.05; }
-            50% { opacity: 0.15; }
-        }
-        
-        .glitch-text {
-            font-family: 'Orbitron', monospace;
-            font-weight: 900;
-            font-size: 4rem;
-            text-align: center;
-            color: #00ff00;
-            text-shadow: 
-                2px 2px 0px #ff00ff,
-                -2px -2px 0px #00ffff,
-                4px 4px 0px #ffff00;
-            animation: glitch 0.5s infinite;
-            margin: 2rem 0;
-            z-index: 2;
-            position: relative;
-        }
-        
-        @keyframes glitch {
-            0%, 100% { transform: translate(0); }
-            10% { transform: translate(-2px, 2px); }
-            20% { transform: translate(2px, -2px); }
-            30% { transform: translate(-2px, -2px); }
-            40% { transform: translate(2px, 2px); }
-        }
-        
-        .hero-section {
-            position: relative;
-            flex-shrink: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
-            z-index: 2;
-            min-height: 50vh; /* Allow it to take up less than 100vh so content can be below */
-        }
-        
-        .peanut-hero {
-            width: 300px;
-            height: 400px;
-            background: url('https://raw.githubusercontent.com/Splendour921/image/main/candy_face.jpg') center/contain no-repeat;
-            animation: float 2s ease-in-out infinite, spin 10s linear infinite;
-            margin: 2rem 0;
-            filter: drop-shadow(0 0 20px #ff00ff) hue-rotate(90deg);
-        }
-        
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes spin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        
-        .subtitle {
-            font-family: 'Comic Neue', cursive;
-            font-size: 1.5rem;
-            color: #ffff00;
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 2rem;
-            animation: pulse 1s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-        
-        .content-section {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 20px;
-            border: 3px solid #00ff00;
-            box-shadow: 0 0 50px #ff00ff;
-            position: relative;
-            z-index: 2;
-            flex-grow: 1; /* Allow content to push footer down */
-        }
-        
-        .description {
-            font-size: 1.2rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
-            text-align: center;
-        }
-        
-        .features {
-            margin: 2rem 0;
-        }
-        
-        .feature-item {
-            background: linear-gradient(45deg, #ff00ff, #00ffff);
-            padding: 1rem;
-            margin: 1rem 0;
-            border-radius: 10px;
-            font-weight: bold;
-            animation: rainbow 2s linear infinite;
-        }
-        
-        @keyframes rainbow {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        
-        .schizo-button, .tiktok-button {
-            display: block;
-            width: 350px;
-            height: 100px;
-            margin: 2rem auto;
-            background: linear-gradient(45deg, #ff0000, #ff00ff, #0000ff, #00ffff, #00ff00, #ffff00);
-            border: none;
-            border-radius: 40px;
-            font-family: 'Orbitron', monospace;
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #fff;
-            cursor: pointer;
-            animation: buttonPulse 0.5s infinite, colorShift 2s linear infinite;
-            box-shadow: 0 0 30px #ff00ff;
-            position: relative;
-            z-index: 3;
-            text-decoration: none; /* For the TikTok link button */
-            display: flex; /* For centering text/icon inside the button */
-            justify-content: center;
-            align-items: center;
-            gap: 10px; /* Space between text and icon */
-        }
-        
-        @keyframes buttonPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-        
-        @keyframes colorShift {
-            0% { filter: hue-rotate(0deg); }
-            100% { filter: hue-rotate(360deg); }
-        }
-        
-        .schizo-button:hover, .tiktok-button:hover {
-            animation: insanePulse 0.1s infinite;
-        }
-        
-        @keyframes insanePulse {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            25% { transform: scale(1.1) rotate(2deg); }
-            50% { transform: scale(0.9) rotate(-2deg); }
-            75% { transform: scale(1.05) rotate(1deg); }
-            100% { transform: scale(1) rotate(0deg); }
-        }
-
-        /* TikTok button specific styles */
-        .tiktok-button {
-            background: linear-gradient(45deg, #69C9D0, #EE1D52); /* TikTok brand colors */
-            box-shadow: 0 0 30px #EE1D52;
-            margin-top: 1rem; /* Adjust margin if needed */
-        }
-
-        .tiktok-icon {
-            width: 30px; /* Size of the TikTok icon */
-            height: 30px;
-            /* You can add an SVG or background-image for a custom icon here */
-        }
-        
-        /* General Popup Styles */
-        .popup-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            background-color: rgba(0, 0, 0, 0.9); /* Darker overlay for prompts */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999; /* Higher z-index to cover everything */
-            animation: fadeIn 0.5s forwards;
-            opacity: 0;
-        }
-
-        .popup-overlay.hidden {
-            animation: fadeOut 0.5s forwards;
-            pointer-events: none; /* Disable interaction when hidden */
-        }
-
-        .popup-content {
-            background-color: rgba(0, 0, 0, 0.95);
-            border: 5px solid #00ff00;
-            box-shadow: 0 0 50px #ff00ff;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            position: relative;
-            transform: scale(0.8);
-            animation: popupScaleIn 0.5s forwards;
-            max-width: 90vw;
-            max-height: 90vh;
-            overflow: auto;
-            color: #fff;
-        }
-
-        .popup-content.initial-prompt {
-            background-image: url('https://raw.githubusercontent.com/Splendour921/image/main/tongue_face.jpg'); /* Your chosen image for the main prompt */
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            min-height: 400px; /* Give it some base size */
-            min-width: 400px;
-            padding: 20px;
-        }
-
-        .popup-content h2 {
-            font-family: 'Orbitron', monospace;
-            color: #ffff00;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px #000;
-            background-color: rgba(0, 0, 0, 0.6); /* Background for readability */
-            padding: 10px 20px;
-            border-radius: 10px;
-        }
-
-        .popup-content p {
-            font-family: 'Comic Neue', cursive; /* Original font */
-            color: #fff;
-            font-size: 1.2rem;
-            margin-bottom: 30px;
-            background-color: rgba(0, 0, 0, 0.6); /* Background for readability */
-            padding: 10px 20px;
-            border-radius: 10px;
-        }
-
-        .popup-button {
-            padding: 15px 30px;
-            font-size: 1.5rem;
-            font-family: 'Orbitron', monospace;
-            background: linear-gradient(45deg, #ff0000, #ff00ff);
-            color: #fff;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-            box-shadow: 0 0 20px rgba(255, 0, 255, 0.7);
-        }
-
-        .popup-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(255, 0, 255, 1);
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
-
-        @keyframes popupScaleIn {
-            from { transform: scale(0.8); opacity: 0; }
-            to { transform: scale(1); opacity: 1; }
-        }
-
-        .warning {
-            background: rgba(255, 0, 0, 0.8);
-            padding: 1rem;
-            margin: 2rem 0;
-            border-radius: 10px;
-            border: 2px dashed #ffff00;
-            font-family: 'Comic Neue', cursive;
-            animation: warningBlink 1s infinite;
-        }
-        
-        @keyframes warningBlink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.8; }
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 2rem;
-            font-size: 0.8rem;
-            color: #888;
-            background: rgba(0, 0, 0, 0.9);
-            flex-shrink: 0; /* Prevent footer from shrinking */
-            margin-top: auto; /* Push footer to the bottom */
-        }
-        
-        .cry-for-help {
-            font-family: 'Comic Neue', cursive;
-            font-style: italic;
-            color: #ff00ff;
-            margin-top: 1rem;
-        }
-        
-        /* Floating memes will now be absolutely positioned and controlled by JS */
-        .floating-memes {
-            position: fixed;
-            font-size: 2rem;
-            z-index: 1;
-            pointer-events: none;
-            opacity: 0.8; /* Slight transparency */
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.5); /* Glow effect */
-        }
-        
-        .the-candy-knows {
-            position: fixed;
-            top: 10px;
-            right: 10px;
-            color: #ff0000;
-            font-family: 'Orbitron', monospace;
-            font-size: 0.8rem;
-            opacity: 0;
-            animation: flickerMessage 5s infinite;
-            z-index: 5;
-        }
-        
-        @keyframes flickerMessage {
-            0%, 90%, 100% { opacity: 0; }
-            95% { opacity: 1; }
-        }
-
-        /* NEW: Bottom Left/Right Images */
-        .corner-image {
-            position: fixed;
-            width: 150px; /* Adjust size as needed */
-            height: 150px; /* Adjust size as needed */
-            background-size: contain;
-            background-repeat: no-repeat;
-            z-index: 10; /* Above other elements, but below popups */
-            filter: drop-shadow(0 0 10px #00ff00); /* A subtle glow */
-            animation: cornerImageFloat 5s ease-in-out infinite alternate, cornerImageRotate 10s linear infinite;
-        }
-
-        .corner-image.left {
-            bottom: 20px;
-            left: 20px;
-            background-image: url();
-            animation-delay: 0s; /* Start immediately */
-        }
-
-        .corner-image.right {
-            bottom: 20px;
-            right: 20px;
-            background-image: url();
-            animation-delay: 2s; /* Slightly delayed for variation */
-        }
-
-        @keyframes cornerImageFloat {
-            0%, 100% { transform: translateY(0) rotate(0deg); }
-            50% { transform: translateY(-15px) rotate(5deg); }
-        }
-
-        @keyframes cornerImageRotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        /* Initial Site Gate Overlay */
-        #initialGate {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            /* UPDATE THIS LINE WITH THE NEW IMAGE URL */
-            background: url('https://raw.githubusercontent.com/Splendour921/image/main/door_way.jpg') center/cover no-repeat; 
-            background-color: rgba(0, 0, 0, 0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            z-index: 10000;
-            color: #fff;
-            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
-            animation: gateOpenGlitch 0.2s infinite;
-        }
-
-        @keyframes gateOpenGlitch {
-            0%, 100% { filter: hue-rotate(0deg); }
-            50% { filter: hue-rotate(5deg); }
-        }
-
-        #initialGate.hidden {
-            animation: fadeOut 0.5s forwards;
-            pointer-events: none;
-        }
-
-        #initialGate h1 {
-            font-family: 'Orbitron', monospace;
-            font-size: 3rem;
-            color: #00ff00;
-            margin-bottom: 40px;
-            margin-left: 8px;
-            text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff;
-        }
-
-        #initialGate p {
-            font-family: 'Orbitron', monospace; /* Changed font to Orbitron */
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        #initialGate button {
-            background: linear-gradient(45deg, #ff0000, #ff00ff);
-            font-family: 'Orbitron', monospace;
-            font-size: 2rem;
-            padding: 20px 50px;
-            border: none;
-            border-radius: 50px;
-            color: #fff;
-            cursor: pointer;
-            box-shadow: 0 0 40px rgba(255, 0, 255, 0.9);
-            animation: buttonPulse 0.5s infinite;
-        }
-
-        #initialGate button:hover {
-            animation: insanePulse 0.1s infinite;
-        }
-
-        /* --- Media Queries for Phones (max-width: 768px) --- */
-        @media (max-width: 768px) {
-            .glitch-text {
-                font-size: 2.5rem; /* Smaller text for main heading on phones */
-                margin-top: 1rem;
-            }
-
-            .peanut-hero {
-                width: 200px; /* Reduced size for middle image on phones */
-                height: 250px; /* Reduced size for middle image on phones */
-                margin: 1rem 0; /* Adjust vertical margin */
-            }
-
-            .subtitle {
-                font-size: 1.2rem; /* Smaller subtitle on phones */
-                margin-bottom: 1rem;
-            }
-
-            .content-section {
-                padding: 1rem; /* Smaller padding for content section */
-                margin: 1rem; /* Add some margin to the sides */
-            }
-
-            .description {
-                font-size: 1rem; /* Smaller description text */
-                margin-bottom: 1.5rem;
-            }
-
-            .feature-item {
-                font-size: 0.9rem; /* Smaller feature text */
-                padding: 0.8rem;
-                margin: 0.8rem 0;
-            }
-
-            .schizo-button, .tiktok-button {
-                width: 280px; /* Smaller button width */
-                height: 80px; /* Smaller button height */
-                font-size: 1.2rem; /* Smaller button text */
-                margin: 1.5rem auto;
-                padding: 10px 20px; /* Adjust padding */
-            }
-
-            .warning {
-                padding: 0.8rem;
-                margin: 1.5rem 0;
-                font-size: 0.9rem;
-            }
-
-            /* Initial Gate Adjustments */
-            #initialGate h1 {
-                font-size: 2rem; /* Smaller "ACCESS GRANTED?" text on phones */
-                margin-bottom: 20px; /* Reduced margin below the text */
-                margin-top: -80px; /* Move "ACCESS GRANTED?" further up */
-            }
-
-            #initialGate p {
-                font-size: 1rem; /* Smaller paragraph text on phones */
-                margin-bottom: 20px; /* Reduced margin below paragraph */
-                padding: 0 10px;
-            }
-
-            #initialGate button {
-                font-size: 1.5rem; /* Smaller button text on phones */
-                padding: 15px 30px; /* Smaller button padding */
-            }
-
-            .popup-content.initial-prompt {
-                min-height: 300px; /* Make the initial prompt slightly smaller */
-                min-width: unset; /* Remove min-width to allow flexible shrinking */
-                width: 90%; /* Take up more width on smaller screens */
-            }
-
-            .popup-content h2 {
-                font-size: 1.5rem; /* Smaller popup heading */
-                padding: 8px 15px;
-            }
-
-            .popup-content p {
-                font-size: 1rem; /* Smaller popup paragraph */
-                padding: 8px 15px;
-            }
-
-            .popup-button {
-                font-size: 1.2rem; /* Smaller popup button text */
-                padding: 10px 20px;
-            }
-
-            .corner-image {
-                width: 100px; /* Smaller corner images */
-                height: 100px;
-                bottom: 10px;
-                left: 10px;
-                right: 10px;
-            }
-
-            .the-candy-knows {
-                font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
-            }
-        }
-    </style>
-</head>
-<body>
-    <div id="initialGate">
-        <h1>ACCESS GRANTED?</h1>
-        <p>Before you enter the Sugar Void, know that sanity is a construct. Are you ready to embrace the chaos?</p>
-        <button onclick="acceptGate()">ENTER THE VOID</button>
-    </div>
-
-    <div id="mainContent" style="display: none;">
-        <div class="static-overlay"></div>
-        <div class="the-candy-knows">THE CANDY KNOWS</div>
-        
-        <div class="corner-image left"></div>
-        <div class="corner-image right"></div>
-
-        <div class="hero-section">
-            <h1 class="glitch-text">SCHIZO CANDY SYNDICATE</h1>
-            <div class="subtitle">THE MOST SCHIZO CANDY IN THE WORLD</div>
-            <div class="peanut-hero"></div>
-            <div class="subtitle">WELCOME TO THE SUGAR VOID.</div>
-        </div>
-        
-        <div class="content-section">
-            <div class="description">
-                Behold <strong>The Most Schizo Candy in the World</strong>—a confection forged in a glitchy dimension where peanuts grin, colors melt, and reality bends. 🍬🍬 🍫 🍭 🍬 🍫 🍭 This isn't your average treat; it's a portal to cosmic chaos, laced with Quantum Crunch and Chaos Syrup that rewires your brain. One bite, and you'll see pigeons plotting, hear static whispers, and dance to interdimensional beats.
-            </div>
-            
-            <h2 style="color: #00ff00; text-align: center; margin: 2rem 0; font-family: 'Orbitron', monospace;">WHAT MAKES IT SCHIZO?</h2>
-            
-            <div class="features">
-                <div class="feature-item">🌈 <strong>Neon Panic:</strong> A flavor that glows and hums at 432 Hz.</div>
-                <div class="feature-item">📡 <strong>Tinfoil Twist:</strong> Tastes like conspiracy and static.</div>
-                <div class="feature-item">💀 <strong>Dread Drop:</strong> Melts your mind into a meme spiral.</div>
-            </div>
-            
-            <div style="text-align: center; margin: 2rem 0;">
-                <strong style="color: #ffff00;">EFFECTS:</strong> Spontaneous moonwalking, X-worthy freakouts, and a sudden urge to decode Bigfoot's tweets. Share your trip with this experience.
-            </div>
-            
-            <button class="schizo-button" onclick="activateSchizo()">
-                🍬 GET YOURS NOW 🍬<br>
-                <small>(if it works, you're chosen)</small>
-            </button>
-
-            <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button" onclick="stopBackgroundMusic()">
-                <img src="https://www.tiktok.com/favicon.ico" alt="TikTok Icon" class="tiktok-icon">
-                FOLLOW US ON TIKTOK
-            </a>
-            
-            <div class="warning">
-                ⚠️ <strong>WARNING:</strong> The candy watches. Side effects may include time loops and alien abductions. Each wrapper hides a QR code to secret X threads.
-            </div>
-        </div>
-        
-        <div class="popup-overlay hidden" id="seuePopupContainer">
-            <div class="popup-content">
-                <h2>SEUE SEUE SEUE!</h2>
-                <p>You have been chosen. The candy has seen you. Prepare for the ultimate sugar rush.</p>
-                <button class="popup-button" onclick="hidePopup('seuePopupContainer')">ACCEPT FATE</button>
-            </div>
-        </div>
-        
-        <div class="footer">
-            <div>SCHIZO CANDY SYNDICATE © 2025 | All rights reserved in this dimension and 47 parallel universes</div>
-            <div class="cry-for-help">This isn't marketing, it's a cry for help.</div>
-        </div>
-    </div>
-    <audio id="backgroundMusic" loop>
-        <source src="tv-glitch.wav" type="audio/mpeg"> Your browser does not support the audio element.
-    </audio>
-    
-    <script>
-        let audioContext;
+let audioContext;
         let isPlaying = false; // Tracks if the chaotic sound is playing
         const backgroundMusic = document.getElementById('backgroundMusic');
 
@@ -736,8 +19,10 @@
             '💊', '☠️', '👻', '⏳', '🔮', '🎭'
         ];
 
-        // NEW: Max number of floating emojis
-        const MAX_FLOATING_EMOJIS = 15; // Keep this number for fewer emojis
+        // --- NEW: Dynamic Emoji Limits ---
+        let MAX_FLOATING_EMOJIS; // This will be set based on screen size
+        const INITIAL_EMOJI_LIMIT_PHONE = 6;
+        const BUTTON_EMOJI_LIMIT_PHONE = 12;
 
         // Function to remove oldest emoji if we exceed MAX_FLOATING_EMOJIS
         function cleanupEmojis() {
@@ -754,6 +39,15 @@
             const initialGate = document.getElementById('initialGate');
             const mainContent = document.getElementById('mainContent');
 
+            // --- NEW: Set initial emoji limit based on screen width ---
+            if (window.innerWidth <= 768) { // Assuming 768px as phone breakpoint
+                MAX_FLOATING_EMOJIS = INITIAL_EMOJI_LIMIT_PHONE;
+            } else {
+                // For larger screens, set a higher default if needed, or keep it at 15
+                MAX_FLOATING_EMOJIS = 15; // Or whatever default you want for desktop
+            }
+            console.log("Initial MAX_FLOATING_EMOJIS:", MAX_FLOATING_EMOJIS);
+
             // Hide the gate with animation
             initialGate.classList.add('hidden');
             
@@ -767,8 +61,6 @@
                     backgroundMusic.volume = 0.3; // Set a subtle volume
                     backgroundMusic.play().catch(error => {
                         console.log("Background music autoplay prevented:", error);
-                        // If autoplay is still prevented, consider adding a small sound icon/button
-                        // for the user to manually enable music, or a message.
                     });
                 }
 
@@ -776,7 +68,6 @@
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
-                // Attempt to resume audio context if it starts suspended (common on some browsers)
                 if (audioContext.state === 'suspended') {
                     audioContext.resume().then(() => {
                         console.log('AudioContext resumed successfully after gate entry.');
@@ -785,11 +76,17 @@
                     });
                 }
                 
-                // Start spawning floating memes periodically once main content is visible
+                // Start spawning floating memes periodically
+                // This interval will now only add if below MAX_FLOATING_EMOJIS
                 setInterval(createFloatingMeme, 300); // Spawn a new meme every 300ms
 
                 // Start the animation loop for the emojis
                 animateEmojis();
+
+                // Immediately create emojis up to the initial limit
+                while(floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                    createFloatingMeme();
+                }
 
             }, 500); // Matches the fadeOut animation duration
         }
@@ -809,7 +106,6 @@
                     console.error('Error resuming AudioContext for schizo sound:', err);
                 });
             } else if (!isPlaying) {
-                // If AudioContext is already running or not yet created, just play
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
@@ -817,22 +113,27 @@
                 isPlaying = true;
             }
             
-            // REMOVED: No longer spawning extra emojis on button click to maintain consistent count.
-            // for (let i = 0; i < 20; i++) {
-            //     setTimeout(() => {
-            //         createFloatingMeme();
-            //     }, i * 100);
-            // }
+            // --- NEW: Increase emoji limit on button click for phones ---
+            if (window.innerWidth <= 768) {
+                MAX_FLOATING_EMOJIS = BUTTON_EMOJI_LIMIT_PHONE;
+                console.log("MAX_FLOATING_EMOJIS updated to:", MAX_FLOATING_EMOJIS, "on button click.");
+                
+                // Immediately create new emojis until the new limit is reached
+                // This ensures the 12 emojis appear quickly after click.
+                const emojisToAdd = MAX_FLOATING_EMOJIS - floatingEmojis.length;
+                for (let i = 0; i < emojisToAdd; i++) {
+                    // Slight delay for visual effect, but still fast
+                    setTimeout(() => createFloatingMeme(), i * 50); 
+                }
+            }
         }
         
         function playSchizophrenicSound() {
-            // Check if audioContext is properly initialized and not null/undefined
             if (!audioContext) {
                 console.error("AudioContext is not initialized. Cannot play schizophrenic sound.");
                 return;
             }
 
-            // A short burst of chaotic sound
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
@@ -854,7 +155,6 @@
             noise.connect(noiseGain);
             noiseGain.connect(audioContext.destination);
             
-            // Use different frequencies for more varied noise bursts
             noise.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
             noiseGain.gain.setValueAtTime(0.05, audioContext.currentTime);
             noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
@@ -866,35 +166,33 @@
         }
         
         function createFloatingMeme() {
-            // Only create a new emoji if we are below the max limit
-            if (floatingEmojis.length >= MAX_FLOATING_EMOJIS) {
-                cleanupEmojis(); // Clean up oldest if at limit before adding new
+            // --- NEW: Only create if current count is less than MAX_FLOATING_EMOJIS ---
+            if (floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                const meme = document.createElement('div');
+                meme.className = 'floating-memes';
+                meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+                
+                const size = 20 + Math.random() * 20; 
+                meme.style.fontSize = size + 'px';
+
+                meme.x = Math.random() * (window.innerWidth - size);
+                meme.y = Math.random() * (window.innerHeight - size);
+
+                meme.style.left = meme.x + 'px';
+                meme.style.top = meme.y + 'px';
+
+                meme.speedX = (Math.random() - 0.5) * 3; 
+                meme.speedY = (Math.random() - 0.5) * 3;
+
+                meme.rotation = Math.random() * 360; 
+                meme.rotationSpeed = (Math.random() - 0.5) * 1; 
+                
+                document.body.appendChild(meme);
+                floatingEmojis.push(meme);
+            } else {
+                // If we are at or above the limit, ensure cleanup is called
+                cleanupEmojis();
             }
-
-            const meme = document.createElement('div');
-            meme.className = 'floating-memes';
-            meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-            
-            // Slightly smaller range for emoji size (20px to 40px)
-            const size = 20 + Math.random() * 20; 
-            meme.style.fontSize = size + 'px';
-
-            // Spawn across the whole screen
-            meme.x = Math.random() * (window.innerWidth - size);
-            meme.y = Math.random() * (window.innerHeight - size);
-
-            meme.style.left = meme.x + 'px';
-            meme.style.top = meme.y + 'px';
-
-            // Keep reduced speed range for slower, more consistent movement
-            meme.speedX = (Math.random() - 0.5) * 3; // Speed between -1.5 and 1.5
-            meme.speedY = (Math.random() - 0.5) * 3;
-
-            meme.rotation = Math.random() * 360; // Initial random rotation
-            meme.rotationSpeed = (Math.random() - 0.5) * 1; // Slower rotation speed
-            
-            document.body.appendChild(meme);
-            floatingEmojis.push(meme);
         }
 
         function animateEmojis() {
@@ -903,7 +201,6 @@
                 meme.y += meme.speedY;
                 meme.rotation += meme.rotationSpeed;
 
-                // Wrap around screen edges
                 if (meme.x > window.innerWidth) meme.x = -meme.offsetWidth;
                 if (meme.x < -meme.offsetWidth) meme.x = window.innerWidth;
                 if (meme.y > window.innerHeight) meme.y = -meme.offsetHeight;
@@ -930,10 +227,42 @@
             }
         }
 
-        // Handle initial popup display on page load (if needed, although acceptGate handles it now)
         window.onload = function() {
-            // No initial popup needed as the gate handles the entry now
+            // Any initial setup on load if needed, but gate handles entry logic
         };
-    </script>
-</body>
-</html>
+
+        // --- NEW: Handle window resize to adjust emoji limit dynamically if breakpoint is crossed ---
+        // This is important if a user resizes their browser window from desktop to phone size
+        // or vice-versa while on the page.
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const newWidth = window.innerWidth;
+                const isPhoneSize = newWidth <= 768;
+                let newMaxEmojis;
+
+                // Determine the new maximum based on current state (button clicked or not)
+                // This assumes `MAX_FLOATING_EMOJIS` stores the *current* target.
+                // If you want to strictly enforce initial/button limits on resize,
+                // you might need a flag to track if the button was clicked.
+                if (isPhoneSize) {
+                    // If button was clicked and now resize to phone size, maybe keep 12
+                    // For simplicity, let's reset to initial limit for phones on resize
+                    // unless a more complex state management is implemented.
+                    newMaxEmojis = INITIAL_EMOJI_LIMIT_PHONE;
+                } else {
+                    newMaxEmojis = 15; // Desktop default
+                }
+
+                if (MAX_FLOATING_EMOJIS !== newMaxEmojis) {
+                    MAX_FLOATING_EMOJIS = newMaxEmojis;
+                    console.log("Resized, MAX_FLOATING_EMOJIS adjusted to:", MAX_FLOATING_EMOJIS);
+                    // Immediately clean up or create to meet the new limit
+                    cleanupEmojis(); 
+                    while(floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                        createFloatingMeme();
+                    }
+                }
+            }, 250); // Debounce resize event
+        });

@@ -14,7 +14,8 @@
         }
         body {
             font-family: 'Arial', sans-serif;
-            background: url('https://raw.githubusercontent.com/Splendour921/image/main/glitchyI.jpg') center/cover no-repeat fixed; /* Updated background to uploaded image */
+            /* REMOVED: background from body directly, moved to ::before */
+            /* background: url('https://raw.githubusercontent.com/Splendour921/image/main/glitchyI.jpg') center/cover no-repeat fixed; */
             overflow-x: hidden;
             color: #fff;
             position: relative;
@@ -22,7 +23,29 @@
             display: flex; /* Flexbox for main content flow */
             flex-direction: column;
         }
+
+        /* NEW: Pseudo-element for vibrating background image */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://raw.githubusercontent.com/Splendour921/image/main/glitchyI.jpg') center/cover no-repeat fixed;
+            z-index: -1; /* Place it behind all content */
+            animation: backgroundVibrate 0.1s infinite alternate; /* More frequent for vibration */
+            filter: brightness(1) hue-rotate(0deg); /* Initial state for filter animation */
+        }
         
+        @keyframes backgroundVibrate {
+            0% { transform: translate(0.5px, 0.5px); filter: brightness(1) hue-rotate(0deg); }
+            25% { transform: translate(-0.5px, -0.5px); filter: brightness(1.01) hue-rotate(0.5deg); }
+            50% { transform: translate(0.5px, -0.5px); filter: brightness(1) hue-rotate(-0.5deg); }
+            75% { transform: translate(-0.5px, 0.5px); filter: brightness(1.01) hue-rotate(0.5deg); }
+            100% { transform: translate(0.5px, 0.5px); filter: brightness(1) hue-rotate(0deg); }
+        }
+
         @keyframes psychedelicBg { /* This animation is no longer actively used for body background but kept if needed elsewhere */
             0%, 100% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
@@ -37,7 +60,7 @@
             background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.1"/></svg>');
             pointer-events: none;
             animation: staticFlicker 0.1s infinite;
-            z-index: 1;
+            z-index: 1; /* Ensure this is above the new background pseudo-element */
         }
         
         @keyframes staticFlicker {
@@ -410,7 +433,7 @@
         }
 
         /* Initial Site Gate Overlay */
-       #initialGate {
+        #initialGate {
             position: fixed;
             top: 0;
             left: 0;
@@ -828,7 +851,9 @@
             meme.speedY = (Math.random() - 0.5) * (3 + Math.random() * 5);
 
             meme.rotation = Math.random() * 360; // Initial random rotation
-            meme.rotationSpeed = (Math.random() - 0.5) * document.body.appendChild(meme);
+            meme.rotationSpeed = (Math.random() - 0.5) * 2; // Fixed the rotationSpeed assignment
+            
+            document.body.appendChild(meme); // Correctly append the meme to the body
             floatingEmojis.push(meme);
         }
 
@@ -838,13 +863,11 @@
                 meme.y += meme.speedY;
                 meme.rotation += meme.rotationSpeed;
 
-                // Bounce off walls
-                if (meme.x + meme.offsetWidth > window.innerWidth || meme.x < 0) {
-                    meme.speedX *= -1;
-                }
-                if (meme.y + meme.offsetHeight > window.innerHeight || meme.y < 0) {
-                    meme.speedY *= -1;
-                }
+                // Wrap around screen edges
+                if (meme.x > window.innerWidth) meme.x = -meme.offsetWidth;
+                if (meme.x < -meme.offsetWidth) meme.x = window.innerWidth;
+                if (meme.y > window.innerHeight) meme.y = -meme.offsetHeight;
+                if (meme.y < -meme.offsetHeight) meme.y = window.innerHeight;
 
                 meme.style.left = meme.x + 'px';
                 meme.style.top = meme.y + 'px';
@@ -853,7 +876,6 @@
             requestAnimationFrame(animateEmojis);
         }
 
-        // --- Popup Functions ---
         function showPopup(id) {
             const popup = document.getElementById(id);
             if (popup) {
@@ -868,10 +890,10 @@
             }
         }
 
-        // Example: Automatically show a popup after some time (optional)
-        // setTimeout(() => {
-        //     showPopup('seuePopupContainer');
-        // }, 5000); // Show after 5 seconds
+        // Handle initial popup display on page load (if needed, although acceptGate handles it now)
+        window.onload = function() {
+            // No initial popup needed as the gate handles the entry now
+        };
     </script>
 </body>
 </html>

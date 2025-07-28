@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHIZO CANDY SYNDICATE</title>
+    <title>$Nutter</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap');
         
@@ -120,7 +120,7 @@
             font-weight: 900;
             font-size: 4rem;
             text-align: center;
-            color: #00ff00;
+            color: #00ff00; /* Green color for $Nutter */
             text-shadow: 
                 2px 2px 0px #ff00ff,
                 -2px -2px 0px #00ffff,
@@ -129,6 +129,32 @@
             margin: 2rem 0;
             z-index: 2;
             position: relative;
+        }
+
+        /* NEW STYLE FOR "Welcome to Sugar Void" and "The most schizo candy in the world" */
+        .welcome-text, .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900; /* Make it bold */
+            color: #ffff00; /* Yellow color */
+            text-shadow: 
+                2px 2px 0px #ff00ff,
+                -2px -2px 0px #00ffff,
+                4px 4px 0px #00ff00; /* Green shadow for contrast */
+            animation: glitch 0.5s infinite; /* Apply the glitch animation */
+            text-align: center;
+            z-index: 2;
+            position: relative;
+        }
+
+        .welcome-text {
+            font-size: 4rem; /* Match $Nutter's size */
+            margin-bottom: 2rem;
+        }
+
+        .subtitle {
+            font-size: 1.5rem; /* Keep the existing subtitle size */
+            margin-bottom: 2rem;
+            animation: pulse 1s infinite, glitch 0.5s infinite; /* Add glitch and keep pulse */
         }
         
         @keyframes glitch {
@@ -168,15 +194,6 @@
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
-        }
-        
-        .subtitle {
-            font-family: 'Comic Neue', cursive;
-            font-size: 1.5rem;
-            color: #ffff00;
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 2rem;
-            animation: pulse 1s infinite;
         }
         
         @keyframes pulse {
@@ -235,7 +252,7 @@
             font-weight: bold;
             color: #fff;
             cursor: pointer;
-            animation: buttonPulse 0.5s infinite, colorShift 2s linear infinite;
+            animation: colorShift 2s linear infinite; /* Removed buttonPulse effect */
             box-shadow: 0 0 30px #ff00ff;
             position: relative;
             z-index: 3;
@@ -543,11 +560,32 @@
             animation: insanePulse 0.1s infinite;
         }
 
+        /* Contract Address Styling */
+        .contract-address {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #ffff00; /* Yellow for visibility */
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px dashed #00ff00;
+            border-radius: 8px;
+            word-break: break-all; /* Ensures long addresses wrap */
+        }
+        .contract-address strong {
+            color: #00ff00; /* Green for the "CA" label */
+        }
+
         /* --- Media Queries for Phones (max-width: 768px) --- */
         @media (max-width: 768px) {
             .glitch-text {
                 font-size: 2.5rem; /* Smaller text for main heading on phones */
                 margin-top: 1rem;
+            }
+
+            .welcome-text {
+                font-size: 2.5rem; /* Smaller text for welcome text on phones */
             }
 
             .peanut-hero {
@@ -641,13 +679,17 @@
             .the-candy-knows {
                 font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
             }
+
+            .contract-address {
+                font-size: 0.9rem; /* Smaller contract address on phones */
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <div id="initialGate">
-        <h1>ACCESS GRANTED?</h1>
-        <p>Before you enter the Sugar Void, know that sanity is a construct. Are you ready to embrace the chaos?</p>
+        <h1 class="welcome-text">WELCOME TO SUGAR VOID</h1> <p>Before you enter the Sugar Void, know that sanity is a construct. Are you ready to embrace the chaos?</p>
         <button onclick="acceptGate()">ENTER THE VOID</button>
     </div>
 
@@ -659,15 +701,17 @@
         <div class="corner-image right"></div>
 
         <div class="hero-section">
-            <h1 class="glitch-text">SCHIZO CANDY SYNDICATE</h1>
-            <div class="subtitle">THE MOST SCHIZO CANDY IN THE WORLD</div>
+            <h1 class="glitch-text">$Nutter</h1>
+            <div class="subtitle">The most schizo candy in the world</div>
             <div class="peanut-hero"></div>
-            <div class="subtitle">WELCOME TO THE SUGAR VOID.</div>
+            <div class="contract-address">
+                <strong>CA:</strong> <span id="memeContractAddress">0xPUTYOURCONTRACTADDRESSHERE1234567890abcdef</span>
+            </div>
         </div>
         
         <div class="content-section">
             <div class="description">
-                Behold <strong>The Most Schizo Candy in the World</strong>—a confection forged in a glitchy dimension where peanuts grin, colors melt, and reality bends. 🍬🍬 🍫 🍭 🍬 🍫 🍭 This isn't your average treat; it's a portal to cosmic chaos, laced with Quantum Crunch and Chaos Syrup that rewires your brain. One bite, and you'll see pigeons plotting, hear static whispers, and dance to interdimensional beats.
+                Behold <strong class="subtitle">The Most Schizo Candy in the World</strong>—a confection forged in a glitchy dimension where peanuts grin, colors melt, and reality bends. 🍬🍬 🍫 🍭 🍬 🍫 🍭 This isn't your average treat; it's a portal to cosmic chaos, laced with Quantum Crunch and Chaos Syrup that rewires your brain. One bite, and you'll see pigeons plotting, hear static whispers, and dance to interdimensional beats.
             </div>
             
             <h2 style="color: #00ff00; text-align: center; margin: 2rem 0; font-family: 'Orbitron', monospace;">WHAT MAKES IT SCHIZO?</h2>
@@ -682,10 +726,9 @@
                 <strong style="color: #ffff00;">EFFECTS:</strong> Spontaneous moonwalking, X-worthy freakouts, and a sudden urge to decode Bigfoot's tweets. Share your trip with this experience.
             </div>
             
-            <button class="schizo-button" onclick="activateSchizo()">
-                🍬 GET YOURS NOW 🍬<br>
-                <small>(if it works, you're chosen)</small>
-            </button>
+            <a href="https://thenutterbutter.ink" target="_blank" class="schizo-button">
+                🍬 GET YOURS NOW 🍬
+            </a>
 
             <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button" onclick="stopBackgroundMusic()">
                 <img src="https://www.tiktok.com/favicon.ico" alt="TikTok Icon" class="tiktok-icon">
@@ -736,8 +779,10 @@
             '💊', '☠️', '👻', '⏳', '🔮', '🎭'
         ];
 
-        // NEW: Max number of floating emojis
-        const MAX_FLOATING_EMOJIS = 15; // Keep this number for fewer emojis
+        // --- NEW: Dynamic Emoji Limits ---
+        let MAX_FLOATING_EMOJIS; // This will be set based on screen size
+        const INITIAL_EMOJI_LIMIT_PHONE = 6;
+        const BUTTON_EMOJI_LIMIT_PHONE = 12;
 
         // Function to remove oldest emoji if we exceed MAX_FLOATING_EMOJIS
         function cleanupEmojis() {
@@ -754,6 +799,15 @@
             const initialGate = document.getElementById('initialGate');
             const mainContent = document.getElementById('mainContent');
 
+            // --- NEW: Set initial emoji limit based on screen width ---
+            if (window.innerWidth <= 768) { // Assuming 768px as phone breakpoint
+                MAX_FLOATING_EMOJIS = INITIAL_EMOJI_LIMIT_PHONE;
+            } else {
+                // For larger screens, set a higher default if needed, or keep it at 15
+                MAX_FLOATING_EMOJIS = 15; // Or whatever default you want for desktop
+            }
+            console.log("Initial MAX_FLOATING_EMOJIS:", MAX_FLOATING_EMOJIS);
+
             // Hide the gate with animation
             initialGate.classList.add('hidden');
             
@@ -767,8 +821,6 @@
                     backgroundMusic.volume = 0.3; // Set a subtle volume
                     backgroundMusic.play().catch(error => {
                         console.log("Background music autoplay prevented:", error);
-                        // If autoplay is still prevented, consider adding a small sound icon/button
-                        // for the user to manually enable music, or a message.
                     });
                 }
 
@@ -776,7 +828,6 @@
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
-                // Attempt to resume audio context if it starts suspended (common on some browsers)
                 if (audioContext.state === 'suspended') {
                     audioContext.resume().then(() => {
                         console.log('AudioContext resumed successfully after gate entry.');
@@ -785,11 +836,17 @@
                     });
                 }
                 
-                // Start spawning floating memes periodically once main content is visible
+                // Start spawning floating memes periodically
+                // This interval will now only add if below MAX_FLOATING_EMOJIS
                 setInterval(createFloatingMeme, 300); // Spawn a new meme every 300ms
 
                 // Start the animation loop for the emojis
                 animateEmojis();
+
+                // Immediately create emojis up to the initial limit
+                while(floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                    createFloatingMeme();
+                }
 
             }, 500); // Matches the fadeOut animation duration
         }
@@ -809,131 +866,12 @@
                     console.error('Error resuming AudioContext for schizo sound:', err);
                 });
             } else if (!isPlaying) {
-                // If AudioContext is already running or not yet created, just play
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
                 playSchizophrenicSound();
                 isPlaying = true;
             }
-            
-            // REMOVED: No longer spawning extra emojis on button click to maintain consistent count.
-            // for (let i = 0; i < 20; i++) {
-            //     setTimeout(() => {
-            //         createFloatingMeme();
-            //     }, i * 100);
-            // }
-        }
-        
-        function playSchizophrenicSound() {
-            // Check if audioContext is properly initialized and not null/undefined
-            if (!audioContext) {
-                console.error("AudioContext is not initialized. Cannot play schizophrenic sound.");
-                return;
-            }
-
-            // A short burst of chaotic sound
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.5);
-            oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 1);
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 1);
-            
-            const noise = audioContext.createOscillator();
-            const noiseGain = audioContext.createGain();
-            noise.connect(noiseGain);
-            noiseGain.connect(audioContext.destination);
-            
-            // Use different frequencies for more varied noise bursts
-            noise.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
-            noiseGain.gain.setValueAtTime(0.05, audioContext.currentTime);
-            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
-            
-            noise.start(audioContext.currentTime);
-            noise.stop(audioContext.currentTime + 0.3);
-
-            setTimeout(() => { isPlaying = false; }, 1000); // Allow sound to play again after 1 second
-        }
-        
-        function createFloatingMeme() {
-            // Only create a new emoji if we are below the max limit
-            if (floatingEmojis.length >= MAX_FLOATING_EMOJIS) {
-                cleanupEmojis(); // Clean up oldest if at limit before adding new
-            }
-
-            const meme = document.createElement('div');
-            meme.className = 'floating-memes';
-            meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-            
-            // Slightly smaller range for emoji size (20px to 40px)
-            const size = 20 + Math.random() * 20; 
-            meme.style.fontSize = size + 'px';
-
-            // Spawn across the whole screen
-            meme.x = Math.random() * (window.innerWidth - size);
-            meme.y = Math.random() * (window.innerHeight - size);
-
-            meme.style.left = meme.x + 'px';
-            meme.style.top = meme.y + 'px';
-
-            // Keep reduced speed range for slower, more consistent movement
-            meme.speedX = (Math.random() - 0.5) * 3; // Speed between -1.5 and 1.5
-            meme.speedY = (Math.random() - 0.5) * 3;
-
-            meme.rotation = Math.random() * 360; // Initial random rotation
-            meme.rotationSpeed = (Math.random() - 0.5) * 1; // Slower rotation speed
-            
-            document.body.appendChild(meme);
-            floatingEmojis.push(meme);
-        }
-
-        function animateEmojis() {
-            floatingEmojis.forEach(meme => {
-                meme.x += meme.speedX;
-                meme.y += meme.speedY;
-                meme.rotation += meme.rotationSpeed;
-
-                // Wrap around screen edges
-                if (meme.x > window.innerWidth) meme.x = -meme.offsetWidth;
-                if (meme.x < -meme.offsetWidth) meme.x = window.innerWidth;
-                if (meme.y > window.innerHeight) meme.y = -meme.offsetHeight;
-                if (meme.y < -meme.offsetHeight) meme.y = window.innerHeight;
-
-                meme.style.left = meme.x + 'px';
-                meme.style.top = meme.y + 'px';
-                meme.style.transform = `rotate(${meme.rotation}deg)`;
-            });
-            requestAnimationFrame(animateEmojis);
-        }
-
-        function showPopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                popup.classList.remove('hidden');
-            }
-        }
-
-        function hidePopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                popup.classList.add('hidden');
-            }
-        }
-
-        // Handle initial popup display on page load (if needed, although acceptGate handles it now)
-        window.onload = function() {
-            // No initial popup needed as the gate handles the entry now
-        };
     </script>
 </body>
 </html>

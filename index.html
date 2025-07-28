@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>$Nutter</title>
+    <title>SCHIZO CANDY SYNDICATE</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap');
         
@@ -120,7 +120,7 @@
             font-weight: 900;
             font-size: 4rem;
             text-align: center;
-            color: #00ff00; /* Green color for $Nutter */
+            color: #00ff00;
             text-shadow: 
                 2px 2px 0px #ff00ff,
                 -2px -2px 0px #00ffff,
@@ -131,26 +131,6 @@
             position: relative;
         }
         
-        /* New style for "welcome to sugar void" */
-        .initial-gate-heading {
-            font-family: 'Orbitron', monospace; /* Keep Orbitron font */
-            font-size: 3rem;
-            color: #ffff00; /* Yellow color */
-            margin-bottom: 40px;
-            margin-left: 8px;
-            text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff; /* Same text shadow as .glitch-text */
-        }
-
-        /* New style for "The most schizo candy in the world" */
-        .schizo-subtitle {
-            font-family: 'Orbitron', monospace; /* Keep Orbitron font */
-            font-size: 1.5rem;
-            color: #ffff00; /* Yellow color */
-            text-shadow: 2px 2px 4px #000;
-            margin-bottom: 2rem;
-            animation: pulse 1s infinite;
-        }
-
         @keyframes glitch {
             0%, 100% { transform: translate(0); }
             10% { transform: translate(-2px, 2px); }
@@ -191,12 +171,31 @@
         }
         
         .subtitle {
-            font-family: 'Comic Neue', cursive;
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
             font-size: 1.5rem;
-            color: #00ff00; /* Set to green */
-            text-shadow: 2px 2px 4px #000;
+            color: #ffff00;
+            text-shadow: 
+                2px 2px 0px #ff00ff,
+                -2px -2px 0px #00ffff,
+                4px 4px 0px #ffff00;
+            animation: glitch 0.5s infinite;
             margin-bottom: 2rem;
-            animation: pulse 1s infinite;
+            text-align: center;
+        }
+
+        .ca-text {
+            font-family: 'Orbitron', monospace;
+            font-weight: 900;
+            font-size: 1.5rem;
+            color: #ffff00;
+            text-shadow: 
+                2px 2px 0px #ff00ff,
+                -2px -2px 0px #00ffff,
+                4px 4px 0px #ffff00;
+            animation: glitch 0.5s infinite;
+            margin-bottom: 2rem;
+            text-align: center;
         }
         
         @keyframes pulse {
@@ -255,11 +254,10 @@
             font-weight: bold;
             color: #fff;
             cursor: pointer;
-            animation: colorShift 2s linear infinite; /* Removed buttonPulse effect */
             box-shadow: 0 0 30px #ff00ff;
             position: relative;
             z-index: 3;
-            text-decoration: none; /* For the TikTok link button */
+            text-decoration: none; /* For the link button */
             display: flex; /* For centering text/icon inside the button */
             justify-content: center;
             align-items: center;
@@ -530,10 +528,9 @@
         }
 
         #initialGate h1 {
-            /* Changed to use the new .initial-gate-heading style */
             font-family: 'Orbitron', monospace;
             font-size: 3rem;
-            color: #ffff00; /* Yellow color */
+            color: #00ff00;
             margin-bottom: 40px;
             margin-left: 8px;
             text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff;
@@ -564,40 +561,11 @@
             animation: insanePulse 0.1s infinite;
         }
 
-        /* Contract Address Styling */
-        .contract-address {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2rem;
-            color: #ffff00; /* Yellow for visibility */
-            text-align: center;
-            margin: 1.5rem 0;
-            padding: 10px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border: 1px dashed #00ff00;
-            border-radius: 8px;
-            word-break: break-all; /* Ensures long addresses wrap */
-        }
-        .contract-address strong {
-            color: #00ff00; /* Green for the "CA" label */
-        }
-
         /* --- Media Queries for Phones (max-width: 768px) --- */
         @media (max-width: 768px) {
             .glitch-text {
                 font-size: 2.5rem; /* Smaller text for main heading on phones */
                 margin-top: 1rem;
-            }
-
-            /* Adjust for the new class names */
-            .initial-gate-heading {
-                font-size: 2rem; /* Smaller "welcome to sugar void" text on phones */
-                margin-bottom: 20px; /* Reduced margin below the text */
-                margin-top: -80px; /* Move "welcome to sugar void" further up */
-            }
-
-            .schizo-subtitle {
-                font-size: 1.2rem; /* Smaller subtitle on phones */
-                margin-bottom: 1rem;
             }
 
             .peanut-hero {
@@ -606,7 +574,7 @@
                 margin: 1rem 0; /* Adjust vertical margin */
             }
 
-            .subtitle {
+            .subtitle, .ca-text {
                 font-size: 1.2rem; /* Smaller subtitle on phones */
                 margin-bottom: 1rem;
             }
@@ -642,6 +610,12 @@
             }
 
             /* Initial Gate Adjustments */
+            #initialGate h1 {
+                font-size: 2rem; /* Smaller "ACCESS GRANTED?" text on phones */
+                margin-bottom: 20px; /* Reduced margin below the text */
+                margin-top: -80px; /* Move "ACCESS GRANTED?" further up */
+            }
+
             #initialGate p {
                 font-size: 1rem; /* Smaller paragraph text on phones */
                 margin-bottom: 20px; /* Reduced margin below paragraph */
@@ -685,17 +659,12 @@
             .the-candy-knows {
                 font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
             }
-
-            .contract-address {
-                font-size: 0.9rem; /* Smaller contract address on phones */
-                padding: 8px;
-            }
         }
     </style>
 </head>
 <body>
     <div id="initialGate">
-        <h1 class="initial-gate-heading">WELCOME TO SUGAR VOID</h1>
+        <h1>ACCESS GRANTED?</h1>
         <p>Before you enter the Sugar Void, know that sanity is a construct. Are you ready to embrace the chaos?</p>
         <button onclick="acceptGate()">ENTER THE VOID</button>
     </div>
@@ -708,12 +677,10 @@
         <div class="corner-image right"></div>
 
         <div class="hero-section">
-            <h1 class="glitch-text">$Nutter</h1>
-            <div class="schizo-subtitle">The most schizo candy in the world</div>
+            <h1 class="glitch-text">SCHIZO CANDY SYNDICATE</h1>
+            <div class="subtitle">THE MOST SCHIZO CANDY IN THE WORLD</div>
             <div class="peanut-hero"></div>
-            <div class="contract-address">
-                <strong>CA:</strong> <span id="memeContractAddress">0xPUTYOURCONTRACTADDRESSHERE1234567890abcdef</span>
-            </div>
+            <div class="ca-text">CA</div>
         </div>
         
         <div class="content-section">
@@ -734,7 +701,8 @@
             </div>
             
             <a href="https://thenutterbutter.ink" target="_blank" class="schizo-button">
-                🍬 GET YOURS NOW 🍬
+                🍬 GET YOURS NOW 🍬<br>
+                <small>(if it works, you're chosen)</small>
             </a>
 
             <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button" onclick="stopBackgroundMusic()">
@@ -744,14 +712,6 @@
             
             <div class="warning">
                 ⚠️ <strong>WARNING:</strong> The candy watches. Side effects may include time loops and alien abductions. Each wrapper hides a QR code to secret X threads.
-            </div>
-        </div>
-        
-        <div class="popup-overlay hidden" id="seuePopupContainer">
-            <div class="popup-content">
-                <h2>SEUE SEUE SEUE!</h2>
-                <p>You have been chosen. The candy has seen you. Prepare for the ultimate sugar rush.</p>
-                <button class="popup-button" onclick="hidePopup('seuePopupContainer')">ACCEPT FATE</button>
             </div>
         </div>
         
@@ -857,28 +817,128 @@
 
             }, 500); // Matches the fadeOut animation duration
         }
-        
-        function activateSchizo() {
-            showPopup('seuePopupContainer'); // Show the first popup
-            
-            // Ensure AudioContext is resumed before playing chaotic sound
-            if (audioContext && audioContext.state === 'suspended') {
-                audioContext.resume().then(() => {
-                    console.log('AudioContext resumed successfully for schizo sound.');
-                    if (!isPlaying) {
-                        playSchizophrenicSound();
-                        isPlaying = true;
-                    }
-                }).catch(err => {
-                    console.error('Error resuming AudioContext for schizo sound:', err);
-                });
-            } else if (!isPlaying) {
-                if (!audioContext) {
-                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                }
-                playSchizophrenicSound();
-                isPlaying = true;
+
+        function createFloatingMeme() {
+            // Only create new emojis if we're below the limit
+            if (floatingEmojis.length >= MAX_FLOATING_EMOJIS) {
+                return; // Don't create more emojis
             }
+
+            const meme = document.createElement('div');
+            meme.classList.add('floating-memes');
+            meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+            
+            // Random starting position
+            meme.style.left = Math.random() * window.innerWidth + 'px';
+            meme.style.top = Math.random() * window.innerHeight + 'px';
+            
+            // Random movement direction and speed
+            meme.dx = (Math.random() - 0.5) * 2; // -1 to 1
+            meme.dy = (Math.random() - 0.5) * 2; // -1 to 1
+            meme.rotation = 0;
+            meme.rotationSpeed = (Math.random() - 0.5) * 5;
+            
+            document.body.appendChild(meme);
+            floatingEmojis.push(meme);
+        }
+
+        function animateEmojis() {
+            floatingEmojis.forEach((meme, index) => {
+                if (!meme.parentNode) {
+                    // Remove from array if element was removed from DOM
+                    floatingEmojis.splice(index, 1);
+                    return;
+                }
+
+                // Get current position
+                let x = parseFloat(meme.style.left) || 0;
+                let y = parseFloat(meme.style.top) || 0;
+                
+                // Update position
+                x += meme.dx;
+                y += meme.dy;
+                
+                // Bounce off edges
+                if (x <= 0 || x >= window.innerWidth - 50) {
+                    meme.dx *= -1;
+                    x = Math.max(0, Math.min(window.innerWidth - 50, x));
+                }
+                if (y <= 0 || y >= window.innerHeight - 50) {
+                    meme.dy *= -1;
+                    y = Math.max(0, Math.min(window.innerHeight - 50, y));
+                }
+                
+                // Update rotation
+                meme.rotation += meme.rotationSpeed;
+                
+                // Apply transformations
+                meme.style.left = x + 'px';
+                meme.style.top = y + 'px';
+                meme.style.transform = `rotate(${meme.rotation}deg)`;
+            });
+            
+            requestAnimationFrame(animateEmojis);
+        }
+
+        // Schizophrenic sound generation function
+        function playSchizophrenicSound() {
+            if (!audioContext) return;
+            
+            const duration = 3; // 3 seconds of chaos
+            const now = audioContext.currentTime;
+            
+            // Create multiple oscillators for layered chaos
+            for (let i = 0; i < 5; i++) {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                const filter = audioContext.createBiquadFilter();
+                
+                // Random frequency modulation
+                oscillator.frequency.setValueAtTime(Math.random() * 1000 + 100, now);
+                oscillator.frequency.exponentialRampToValueAtTime(Math.random() * 2000 + 50, now + duration);
+                
+                // Random waveform
+                const waveforms = ['sine', 'square', 'sawtooth', 'triangle'];
+                oscillator.type = waveforms[Math.floor(Math.random() * waveforms.length)];
+                
+                // Filter chaos
+                filter.type = 'lowpass';
+                filter.frequency.setValueAtTime(Math.random() * 5000 + 200, now);
+                filter.frequency.exponentialRampToValueAtTime(Math.random() * 3000 + 100, now + duration);
+                
+                // Volume envelope
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(Math.random() * 0.1 + 0.02, now + 0.1);
+                gainNode.gain.exponentialRampToValueAtTime(0.001, now + duration);
+                
+                // Connect the chaos
+                oscillator.connect(filter);
+                filter.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.start(now + Math.random() * 0.5);
+                oscillator.stop(now + duration);
+            }
+            
+            // Reset the playing flag after the sound ends
+            setTimeout(() => {
+                isPlaying = false;
+            }, duration * 1000);
+        }
+
+        function showPopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.remove('hidden');
+            }
+        }
+
+        function hidePopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.add('hidden');
+            }
+        }
     </script>
 </body>
 </html>

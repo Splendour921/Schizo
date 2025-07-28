@@ -14,8 +14,6 @@
         }
         body {
             font-family: 'Arial', sans-serif;
-            /* REMOVED: background from body directly, moved to ::before */
-            /* background: url('https://raw.githubusercontent.com/Splendour921/image/main/glitchyI.jpg') center/cover no-repeat fixed; */
             overflow-x: hidden;
             color: #fff;
             position: relative;
@@ -35,15 +33,64 @@
             background: url('https://raw.githubusercontent.com/Splendour921/image/main/glitchyI.jpg') center/cover no-repeat fixed;
             z-index: -1; /* Place it behind all content */
             animation: backgroundVibrate 0.1s infinite alternate; /* More frequent for vibration */
-            filter: brightness(1) hue-rotate(0deg); /* Initial state for filter animation */
+            
+            /* IMPORTANT: Add translateZ(0) for mobile hardware acceleration */
+            transform: translateZ(0); 
+            -webkit-transform: translateZ(0); /* Webkit prefix */
+            
+            /* Initial state for filter animation */
+            filter: brightness(1) hue-rotate(0deg); 
+            -webkit-filter: brightness(1) hue-rotate(0deg); /* Webkit prefix */
+
+            /* Add -webkit- prefix for older Safari/iOS compatibility for animation */
+            -webkit-animation: backgroundVibrate 0.1s infinite alternate;
         }
         
         @keyframes backgroundVibrate {
-            0% { transform: translate(0.5px, 0.5px); filter: brightness(1) hue-rotate(0deg); }
-            25% { transform: translate(-0.5px, -0.5px); filter: brightness(1.01) hue-rotate(0.5deg); }
-            50% { transform: translate(0.5px, -0.5px); filter: brightness(1) hue-rotate(-0.5deg); }
-            75% { transform: translate(-0.5px, 0.5px); filter: brightness(1.01) hue-rotate(0.5deg); }
-            100% { transform: translate(0.5px, 0.5px); filter: brightness(1) hue-rotate(0deg); }
+            0% { 
+                transform: translate3d(0.5px, 0.5px, 0); 
+                filter: brightness(1) hue-rotate(0deg); 
+            }
+            25% { 
+                transform: translate3d(-0.5px, -0.5px, 0); 
+                filter: brightness(1.01) hue-rotate(0.5deg); 
+            }
+            50% { 
+                transform: translate3d(0.5px, -0.5px, 0); 
+                filter: brightness(1) hue-rotate(-0.5deg); 
+            }
+            75% { 
+                transform: translate3d(-0.5px, 0.5px, 0); 
+                filter: brightness(1.01) hue-rotate(0.5deg); 
+            }
+            100% { 
+                transform: translate3d(0.5px, 0.5px, 0); 
+                filter: brightness(1) hue-rotate(0deg); 
+            }
+        }
+
+        /* NEW: Add -webkit- prefixed keyframes for backgroundVibrate */
+        @-webkit-keyframes backgroundVibrate {
+            0% { 
+                -webkit-transform: translate3d(0.5px, 0.5px, 0); 
+                -webkit-filter: brightness(1) hue-rotate(0deg); 
+            }
+            25% { 
+                -webkit-transform: translate3d(-0.5px, -0.5px, 0); 
+                -webkit-filter: brightness(1.01) hue-rotate(0.5deg); 
+            }
+            50% { 
+                -webkit-transform: translate3d(0.5px, -0.5px, 0); 
+                -webkit-filter: brightness(1) hue-rotate(-0.5deg); 
+            }
+            75% { 
+                -webkit-transform: translate3d(-0.5px, 0.5px, 0); 
+                -webkit-filter: brightness(1.01) hue-rotate(0.5deg); 
+            }
+            100% { 
+                -webkit-transform: translate3d(0.5px, 0.5px, 0); 
+                -webkit-filter: brightness(1) hue-rotate(0deg); 
+            }
         }
 
         @keyframes psychedelicBg { /* This animation is no longer actively used for body background but kept if needed elsewhere */
@@ -429,7 +476,7 @@
 
         @keyframes cornerImageRotate {
             from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
+            to { transform: 360deg; }
         }
 
         /* Initial Site Gate Overlay */
@@ -684,35 +731,23 @@
         // Array to hold all active floating emoji objects
         const floatingEmojis = [];
         const emojiList = [
-            '🍬', // Candy - essential!
-            '🍫', // More candy
-            '🍭', // Even more candy
-            '🍩', // Another sweet treat
-            '🤪', // Crazy/Schizo
-            '🤯', // Mind-blown, brain rewiring
-            '😵‍💫',// Dizzy, disoriented, reality bending
-            '🫠', // Melting face - perfect for "colors melt" and reality bending
-            '👁️', // Eye - watching, unsettling, seeing things
-            '👀', // Eyes - for the "candy watches" and plotting
-            '👁️‍🗨️',// Eye in speech bubble - for static whispers, hidden messages
-            '🌀', // Swirl, vortex, mental chaos
-            '⚡', // Electric, chaotic energy
-            '👾', // Alien monster/glitch, alien abductions
-            '❓', // Confusion, questions of reality
-            '❕', // Exclamation, sudden realizations
-            '👽', // Aliens, alien abductions
-            '🛸', // UFO, alien abductions
-            '🌟', // Star, cosmic elements
-            '💫', // Dizzying, shimmering, cosmic
-            '🥜', // The Peanut Hero!
-            '🌈', // Psychedelic, melting colors
-            '💊', // Rewires your brain, chaos syrup effects
-            '☠️', // Skull - Dread Drop, unsettling
-            '👻', // Ghost - spectral whispers, unsettling
-            '⏳', // Hourglass - Time loops
-            '🔮', // Mystical, unpredictable effects
-            '🎭'  // Masks/Theater - reality as a performance, hidden truths
-        ]; // Combined list
+            '🍬', '🍫', '🍭', '🍩', '🤪', '🤯', '😵‍💫', '🫠', '👁️', '👀', '👁️‍🗨️',
+            '🌀', '⚡', '👾', '❓', '❕', '👽', '🛸', '🌟', '💫', '🥜', '🌈',
+            '💊', '☠️', '👻', '⏳', '🔮', '🎭'
+        ];
+
+        // NEW: Max number of floating emojis
+        const MAX_FLOATING_EMOJIS = 15; // Keep this number for fewer emojis
+
+        // Function to remove oldest emoji if we exceed MAX_FLOATING_EMOJIS
+        function cleanupEmojis() {
+            while (floatingEmojis.length > MAX_FLOATING_EMOJIS) {
+                const oldestMeme = floatingEmojis.shift(); // Remove from the beginning of the array
+                if (oldestMeme && oldestMeme.parentNode) {
+                    oldestMeme.parentNode.removeChild(oldestMeme);
+                }
+            }
+        }
 
         // Function to handle the initial gate acceptance
         function acceptGate() {
@@ -831,29 +866,34 @@
         }
         
         function createFloatingMeme() {
+            // Only create a new emoji if we are below the max limit
+            if (floatingEmojis.length >= MAX_FLOATING_EMOJIS) {
+                cleanupEmojis(); // Clean up oldest if at limit before adding new
+            }
+
             const meme = document.createElement('div');
             meme.className = 'floating-memes';
             meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
             
-            const size = 20 + Math.random() * 40; // Emoji size between 20px and 60px
+            // Slightly smaller range for emoji size (20px to 40px)
+            const size = 20 + Math.random() * 20; 
             meme.style.fontSize = size + 'px';
 
-            // Initial random position
+            // Spawn across the whole screen
             meme.x = Math.random() * (window.innerWidth - size);
             meme.y = Math.random() * (window.innerHeight - size);
 
             meme.style.left = meme.x + 'px';
             meme.style.top = meme.y + 'px';
 
-            // Random speed and direction
-            // Increased speed range for more movement
-            meme.speedX = (Math.random() - 0.5) * (3 + Math.random() * 5); // Speed between -4 and 4
-            meme.speedY = (Math.random() - 0.5) * (3 + Math.random() * 5);
+            // Keep reduced speed range for slower, more consistent movement
+            meme.speedX = (Math.random() - 0.5) * 3; // Speed between -1.5 and 1.5
+            meme.speedY = (Math.random() - 0.5) * 3;
 
             meme.rotation = Math.random() * 360; // Initial random rotation
-            meme.rotationSpeed = (Math.random() - 0.5) * 2; // Fixed the rotationSpeed assignment
+            meme.rotationSpeed = (Math.random() - 0.5) * 1; // Slower rotation speed
             
-            document.body.appendChild(meme); // Correctly append the meme to the body
+            document.body.appendChild(meme);
             floatingEmojis.push(meme);
         }
 

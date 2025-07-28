@@ -476,7 +476,7 @@
 
         @keyframes cornerImageRotate {
             from { transform: rotate(0deg); }
-            to { transform: 360deg; }
+            to { transform: rotate(360deg); }
         }
 
         /* Initial Site Gate Overlay */
@@ -817,12 +817,12 @@
                 isPlaying = true;
             }
             
-            // Add more floating memes immediately on schizo activation
-            for (let i = 0; i < 20; i++) { // Spawn 20 more on click
-                setTimeout(() => {
-                    createFloatingMeme();
-                }, i * 100); // Faster spawning on click
-            }
+            // REMOVED: No longer spawning extra emojis on button click to maintain consistent count.
+            // for (let i = 0; i < 20; i++) {
+            //     setTimeout(() => {
+            //         createFloatingMeme();
+            //     }, i * 100);
+            // }
         }
         
         function playSchizophrenicSound() {

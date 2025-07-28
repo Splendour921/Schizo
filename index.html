@@ -726,7 +726,7 @@
                 <strong style="color: #ffff00;">EFFECTS:</strong> Spontaneous moonwalking, X-worthy freakouts, and a sudden urge to decode Bigfoot's tweets. Share your trip with this experience.
             </div>
             
-            <a href="https://nutterbutter.ink" target="_blank" class="schizo-button">
+            <a href="https://thenutterbutter.ink" target="_blank" class="schizo-button">
                 🍬 GET YOURS NOW 🍬
             </a>
 
@@ -794,6 +794,30 @@
             }
         }
 
+        // --- ADDED: Placeholder for createFloatingMeme as it's called but not defined ---
+        function createFloatingMeme() {
+            // This function needs actual logic to create and animate a floating emoji
+            // For now, let's just log a message to indicate it's being called
+            // console.log("Creating floating meme (function needs full implementation)");
+
+            // Example basic implementation (you might have a more complex one):
+            const meme = document.createElement('div');
+            meme.classList.add('floating-memes');
+            meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+            meme.style.left = Math.random() * 100 + 'vw';
+            meme.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(meme);
+            floatingEmojis.push(meme);
+            cleanupEmojis(); // Ensure limits are respected
+        }
+
+        // --- ADDED: Placeholder for animateEmojis as it's called but not defined ---
+        function animateEmojis() {
+            // This function needs actual animation logic for floating emojis
+            // For now, it will be an empty placeholder
+            // console.log("Animating emojis (function needs full implementation)");
+        }
+
         // Function to handle the initial gate acceptance
         function acceptGate() {
             const initialGate = document.getElementById('initialGate');
@@ -851,6 +875,41 @@
             }, 500); // Matches the fadeOut animation duration
         }
         
+        // --- ADDED: showPopup and hidePopup functions ---
+        function showPopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.remove('hidden');
+                // You might want to add 'initial-prompt' class dynamically if it's the initial one
+                // For now, assume it's already there in HTML or not needed for this popup
+            }
+        }
+
+        function hidePopup(popupId) {
+            const popup = document.getElementById(popupId);
+            if (popup) {
+                popup.classList.add('hidden');
+            }
+        }
+
+        // --- ADDED: Placeholder for playSchizophrenicSound as it's called but not defined ---
+        function playSchizophrenicSound() {
+            console.log("Playing schizophrenic sound (function needs full implementation)");
+            // Example: You'd load and play an audio buffer here using AudioContext
+            // For example:
+            // fetch('path/to/your/schizo_sound.mp3')
+            //     .then(response => response.arrayBuffer())
+            //     .then(buffer => audioContext.decodeAudioData(buffer))
+            //     .then(decodedBuffer => {
+            //         const source = audioContext.createBufferSource();
+            //         source.buffer = decodedBuffer;
+            //         source.connect(audioContext.destination);
+            //         source.start(0);
+            //     })
+            //     .catch(e => console.error("Error playing schizo sound:", e));
+        }
+
+
         function activateSchizo() {
             showPopup('seuePopupContainer'); // Show the first popup
             
@@ -872,6 +931,7 @@
                 playSchizophrenicSound();
                 isPlaying = true;
             }
+        }
     </script>
 </body>
 </html>

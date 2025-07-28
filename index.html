@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SCHIZO CANDY SYNDICATE</title>
+    <title>$Nutter</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Comic+Neue:wght@400;700&display=swap');
         
@@ -120,7 +120,7 @@
             font-weight: 900;
             font-size: 4rem;
             text-align: center;
-            color: #00ff00;
+            color: #00ff00; /* Green color for $Nutter */
             text-shadow: 
                 2px 2px 0px #ff00ff,
                 -2px -2px 0px #00ffff,
@@ -131,6 +131,26 @@
             position: relative;
         }
         
+        /* New style for "welcome to sugar void" */
+        .initial-gate-heading {
+            font-family: 'Orbitron', monospace; /* Keep Orbitron font */
+            font-size: 3rem;
+            color: #ffff00; /* Yellow color */
+            margin-bottom: 40px;
+            margin-left: 8px;
+            text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff; /* Same text shadow as .glitch-text */
+        }
+
+        /* New style for "The most schizo candy in the world" */
+        .schizo-subtitle {
+            font-family: 'Orbitron', monospace; /* Keep Orbitron font */
+            font-size: 1.5rem;
+            color: #ffff00; /* Yellow color */
+            text-shadow: 2px 2px 4px #000;
+            margin-bottom: 2rem;
+            animation: pulse 1s infinite;
+        }
+
         @keyframes glitch {
             0%, 100% { transform: translate(0); }
             10% { transform: translate(-2px, 2px); }
@@ -173,7 +193,7 @@
         .subtitle {
             font-family: 'Comic Neue', cursive;
             font-size: 1.5rem;
-            color: #ffff00;
+            color: #00ff00; /* Set to green */
             text-shadow: 2px 2px 4px #000;
             margin-bottom: 2rem;
             animation: pulse 1s infinite;
@@ -235,7 +255,7 @@
             font-weight: bold;
             color: #fff;
             cursor: pointer;
-            animation: buttonPulse 0.5s infinite, colorShift 2s linear infinite;
+            animation: colorShift 2s linear infinite; /* Removed buttonPulse effect */
             box-shadow: 0 0 30px #ff00ff;
             position: relative;
             z-index: 3;
@@ -510,9 +530,10 @@
         }
 
         #initialGate h1 {
+            /* Changed to use the new .initial-gate-heading style */
             font-family: 'Orbitron', monospace;
             font-size: 3rem;
-            color: #00ff00;
+            color: #ffff00; /* Yellow color */
             margin-bottom: 40px;
             margin-left: 8px;
             text-shadow: 3px 3px 0px #ff00ff, -3px -3px 0px #00ffff;
@@ -543,11 +564,40 @@
             animation: insanePulse 0.1s infinite;
         }
 
+        /* Contract Address Styling */
+        .contract-address {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #ffff00; /* Yellow for visibility */
+            text-align: center;
+            margin: 1.5rem 0;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border: 1px dashed #00ff00;
+            border-radius: 8px;
+            word-break: break-all; /* Ensures long addresses wrap */
+        }
+        .contract-address strong {
+            color: #00ff00; /* Green for the "CA" label */
+        }
+
         /* --- Media Queries for Phones (max-width: 768px) --- */
         @media (max-width: 768px) {
             .glitch-text {
                 font-size: 2.5rem; /* Smaller text for main heading on phones */
                 margin-top: 1rem;
+            }
+
+            /* Adjust for the new class names */
+            .initial-gate-heading {
+                font-size: 2rem; /* Smaller "welcome to sugar void" text on phones */
+                margin-bottom: 20px; /* Reduced margin below the text */
+                margin-top: -80px; /* Move "welcome to sugar void" further up */
+            }
+
+            .schizo-subtitle {
+                font-size: 1.2rem; /* Smaller subtitle on phones */
+                margin-bottom: 1rem;
             }
 
             .peanut-hero {
@@ -592,12 +642,6 @@
             }
 
             /* Initial Gate Adjustments */
-            #initialGate h1 {
-                font-size: 2rem; /* Smaller "ACCESS GRANTED?" text on phones */
-                margin-bottom: 20px; /* Reduced margin below the text */
-                margin-top: -80px; /* Move "ACCESS GRANTED?" further up */
-            }
-
             #initialGate p {
                 font-size: 1rem; /* Smaller paragraph text on phones */
                 margin-bottom: 20px; /* Reduced margin below paragraph */
@@ -641,12 +685,17 @@
             .the-candy-knows {
                 font-size: 0.6rem; /* Smaller "THE CANDY KNOWS" */
             }
+
+            .contract-address {
+                font-size: 0.9rem; /* Smaller contract address on phones */
+                padding: 8px;
+            }
         }
     </style>
 </head>
 <body>
     <div id="initialGate">
-        <h1>ACCESS GRANTED?</h1>
+        <h1 class="initial-gate-heading">WELCOME TO SUGAR VOID</h1>
         <p>Before you enter the Sugar Void, know that sanity is a construct. Are you ready to embrace the chaos?</p>
         <button onclick="acceptGate()">ENTER THE VOID</button>
     </div>
@@ -659,10 +708,12 @@
         <div class="corner-image right"></div>
 
         <div class="hero-section">
-            <h1 class="glitch-text">SCHIZO CANDY SYNDICATE</h1>
-            <div class="subtitle">THE MOST SCHIZO CANDY IN THE WORLD</div>
+            <h1 class="glitch-text">$Nutter</h1>
+            <div class="schizo-subtitle">The most schizo candy in the world</div>
             <div class="peanut-hero"></div>
-            <div class="subtitle">WELCOME TO THE SUGAR VOID.</div>
+            <div class="contract-address">
+                <strong>CA:</strong> <span id="memeContractAddress">0xPUTYOURCONTRACTADDRESSHERE1234567890abcdef</span>
+            </div>
         </div>
         
         <div class="content-section">
@@ -682,10 +733,9 @@
                 <strong style="color: #ffff00;">EFFECTS:</strong> Spontaneous moonwalking, X-worthy freakouts, and a sudden urge to decode Bigfoot's tweets. Share your trip with this experience.
             </div>
             
-            <button class="schizo-button" onclick="activateSchizo()">
-                🍬 GET YOURS NOW 🍬<br>
-                <small>(if it works, you're chosen)</small>
-            </button>
+            <a href="https://thenutterbutter.ink" target="_blank" class="schizo-button">
+                🍬 GET YOURS NOW 🍬
+            </a>
 
             <a href="https://www.tiktok.com/@officialnutterbutter?_t=ZT-8yNDG616V3u&_r=1" target="_blank" class="tiktok-button" onclick="stopBackgroundMusic()">
                 <img src="https://www.tiktok.com/favicon.ico" alt="TikTok Icon" class="tiktok-icon">
@@ -829,160 +879,6 @@
                 playSchizophrenicSound();
                 isPlaying = true;
             }
-            
-            // --- NEW: Increase emoji limit on button click for phones ---
-            if (window.innerWidth <= 768) {
-                MAX_FLOATING_EMOJIS = BUTTON_EMOJI_LIMIT_PHONE;
-                console.log("MAX_FLOATING_EMOJIS updated to:", MAX_FLOATING_EMOJIS, "on button click.");
-                
-                // Immediately create new emojis until the new limit is reached
-                // This ensures the 12 emojis appear quickly after click.
-                const emojisToAdd = MAX_FLOATING_EMOJIS - floatingEmojis.length;
-                for (let i = 0; i < emojisToAdd; i++) {
-                    // Slight delay for visual effect, but still fast
-                    setTimeout(() => createFloatingMeme(), i * 50); 
-                }
-            }
-        }
-        
-        function playSchizophrenicSound() {
-            if (!audioContext) {
-                console.error("AudioContext is not initialized. Cannot play schizophrenic sound.");
-                return;
-            }
-
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-            oscillator.frequency.exponentialRampToValueAtTime(800, audioContext.currentTime + 0.5);
-            oscillator.frequency.exponentialRampToValueAtTime(100, audioContext.currentTime + 1);
-            
-            gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 1);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 1);
-            
-            const noise = audioContext.createOscillator();
-            const noiseGain = audioContext.createGain();
-            noise.connect(noiseGain);
-            noiseGain.connect(audioContext.destination);
-            
-            noise.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
-            noiseGain.gain.setValueAtTime(0.05, audioContext.currentTime);
-            noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
-            
-            noise.start(audioContext.currentTime);
-            noise.stop(audioContext.currentTime + 0.3);
-
-            setTimeout(() => { isPlaying = false; }, 1000); // Allow sound to play again after 1 second
-        }
-        
-        function createFloatingMeme() {
-            // --- NEW: Only create if current count is less than MAX_FLOATING_EMOJIS ---
-            if (floatingEmojis.length < MAX_FLOATING_EMOJIS) {
-                const meme = document.createElement('div');
-                meme.className = 'floating-memes';
-                meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-                
-                const size = 20 + Math.random() * 20; 
-                meme.style.fontSize = size + 'px';
-
-                meme.x = Math.random() * (window.innerWidth - size);
-                meme.y = Math.random() * (window.innerHeight - size);
-
-                meme.style.left = meme.x + 'px';
-                meme.style.top = meme.y + 'px';
-
-                meme.speedX = (Math.random() - 0.5) * 3; 
-                meme.speedY = (Math.random() - 0.5) * 3;
-
-                meme.rotation = Math.random() * 360; 
-                meme.rotationSpeed = (Math.random() - 0.5) * 1; 
-                
-                document.body.appendChild(meme);
-                floatingEmojis.push(meme);
-            } else {
-                // If we are at or above the limit, ensure cleanup is called
-                cleanupEmojis();
-            }
-        }
-
-        function animateEmojis() {
-            floatingEmojis.forEach(meme => {
-                meme.x += meme.speedX;
-                meme.y += meme.speedY;
-                meme.rotation += meme.rotationSpeed;
-
-                if (meme.x > window.innerWidth) meme.x = -meme.offsetWidth;
-                if (meme.x < -meme.offsetWidth) meme.x = window.innerWidth;
-                if (meme.y > window.innerHeight) meme.y = -meme.offsetHeight;
-                if (meme.y < -meme.offsetHeight) meme.y = window.innerHeight;
-
-                meme.style.left = meme.x + 'px';
-                meme.style.top = meme.y + 'px';
-                meme.style.transform = `rotate(${meme.rotation}deg)`;
-            });
-            requestAnimationFrame(animateEmojis);
-        }
-
-        function showPopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                popup.classList.remove('hidden');
-            }
-        }
-
-        function hidePopup(id) {
-            const popup = document.getElementById(id);
-            if (popup) {
-                popup.classList.add('hidden');
-            }
-        }
-
-        window.onload = function() {
-            // Any initial setup on load if needed, but gate handles entry logic
-        };
-
-        // --- NEW: Handle window resize to adjust emoji limit dynamically if breakpoint is crossed ---
-        // This is important if a user resizes their browser window from desktop to phone size
-        // or vice-versa while on the page.
-        let resizeTimeout;
-        window.addEventListener('resize', () => {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                const newWidth = window.innerWidth;
-                const isPhoneSize = newWidth <= 768;
-                let newMaxEmojis;
-
-                // Determine the new maximum based on current state (button clicked or not)
-                // This assumes `MAX_FLOATING_EMOJIS` stores the *current* target.
-                // If you want to strictly enforce initial/button limits on resize,
-                // you might need a flag to track if the button was clicked.
-                if (isPhoneSize) {
-                    // If button was clicked and now resize to phone size, maybe keep 12
-                    // For simplicity, let's reset to initial limit for phones on resize
-                    // unless a more complex state management is implemented.
-                    newMaxEmojis = INITIAL_EMOJI_LIMIT_PHONE;
-                } else {
-                    newMaxEmojis = 15; // Desktop default
-                }
-
-                if (MAX_FLOATING_EMOJIS !== newMaxEmojis) {
-                    MAX_FLOATING_EMOJIS = newMaxEmojis;
-                    console.log("Resized, MAX_FLOATING_EMOJIS adjusted to:", MAX_FLOATING_EMOJIS);
-                    // Immediately clean up or create to meet the new limit
-                    cleanupEmojis(); 
-                    while(floatingEmojis.length < MAX_FLOATING_EMOJIS) {
-                        createFloatingMeme();
-                    }
-                }
-            }, 250); // Debounce resize event
-        });
     </script>
 </body>
 </html>

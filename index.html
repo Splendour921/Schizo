@@ -731,13 +731,15 @@
         // Array to hold all active floating emoji objects
         const floatingEmojis = [];
         const emojiList = [
-            '🍬', '🍫', '🍭',  '🤪',  '😵‍💫',  '👁️', '👀', '👁️‍🗨️',
+            '🍬', '🍫', '🍭', '🍩', '🤪', '🤯', '😵‍💫', '🫠', '👁️', '👀', '👁️‍🗨️',
             '🌀', '⚡', '👾', '❓', '❕', '👽', '🛸', '🌟', '💫', '🥜', '🌈',
-            '💊', '☠️', '⏳', '🎭'
+            '💊', '☠️', '👻', '⏳', '🔮', '🎭'
         ];
 
-        // NEW: Max number of floating emojis
-        const MAX_FLOATING_EMOJIS = 15; // Keep this number for fewer emojis
+        // --- NEW: Dynamic Emoji Limits ---
+        let MAX_FLOATING_EMOJIS; // This will be set based on screen size
+        const INITIAL_EMOJI_LIMIT_PHONE = 6;
+        const BUTTON_EMOJI_LIMIT_PHONE = 12;
 
         // Function to remove oldest emoji if we exceed MAX_FLOATING_EMOJIS
         function cleanupEmojis() {
@@ -754,6 +756,15 @@
             const initialGate = document.getElementById('initialGate');
             const mainContent = document.getElementById('mainContent');
 
+            // --- NEW: Set initial emoji limit based on screen width ---
+            if (window.innerWidth <= 768) { // Assuming 768px as phone breakpoint
+                MAX_FLOATING_EMOJIS = INITIAL_EMOJI_LIMIT_PHONE;
+            } else {
+                // For larger screens, set a higher default if needed, or keep it at 15
+                MAX_FLOATING_EMOJIS = 15; // Or whatever default you want for desktop
+            }
+            console.log("Initial MAX_FLOATING_EMOJIS:", MAX_FLOATING_EMOJIS);
+
             // Hide the gate with animation
             initialGate.classList.add('hidden');
             
@@ -767,8 +778,6 @@
                     backgroundMusic.volume = 0.3; // Set a subtle volume
                     backgroundMusic.play().catch(error => {
                         console.log("Background music autoplay prevented:", error);
-                        // If autoplay is still prevented, consider adding a small sound icon/button
-                        // for the user to manually enable music, or a message.
                     });
                 }
 
@@ -776,7 +785,6 @@
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
-                // Attempt to resume audio context if it starts suspended (common on some browsers)
                 if (audioContext.state === 'suspended') {
                     audioContext.resume().then(() => {
                         console.log('AudioContext resumed successfully after gate entry.');
@@ -785,11 +793,17 @@
                     });
                 }
                 
-                // Start spawning floating memes periodically once main content is visible
+                // Start spawning floating memes periodically
+                // This interval will now only add if below MAX_FLOATING_EMOJIS
                 setInterval(createFloatingMeme, 300); // Spawn a new meme every 300ms
 
                 // Start the animation loop for the emojis
                 animateEmojis();
+
+                // Immediately create emojis up to the initial limit
+                while(floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                    createFloatingMeme();
+                }
 
             }, 500); // Matches the fadeOut animation duration
         }
@@ -809,7 +823,6 @@
                     console.error('Error resuming AudioContext for schizo sound:', err);
                 });
             } else if (!isPlaying) {
-                // If AudioContext is already running or not yet created, just play
                 if (!audioContext) {
                     audioContext = new (window.AudioContext || window.webkitAudioContext)();
                 }
@@ -817,22 +830,27 @@
                 isPlaying = true;
             }
             
-            // REMOVED: No longer spawning extra emojis on button click to maintain consistent count.
-            // for (let i = 0; i < 20; i++) {
-            //     setTimeout(() => {
-            //         createFloatingMeme();
-            //     }, i * 100);
-            // }
+            // --- NEW: Increase emoji limit on button click for phones ---
+            if (window.innerWidth <= 768) {
+                MAX_FLOATING_EMOJIS = BUTTON_EMOJI_LIMIT_PHONE;
+                console.log("MAX_FLOATING_EMOJIS updated to:", MAX_FLOATING_EMOJIS, "on button click.");
+                
+                // Immediately create new emojis until the new limit is reached
+                // This ensures the 12 emojis appear quickly after click.
+                const emojisToAdd = MAX_FLOATING_EMOJIS - floatingEmojis.length;
+                for (let i = 0; i < emojisToAdd; i++) {
+                    // Slight delay for visual effect, but still fast
+                    setTimeout(() => createFloatingMeme(), i * 50); 
+                }
+            }
         }
         
         function playSchizophrenicSound() {
-            // Check if audioContext is properly initialized and not null/undefined
             if (!audioContext) {
                 console.error("AudioContext is not initialized. Cannot play schizophrenic sound.");
                 return;
             }
 
-            // A short burst of chaotic sound
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
@@ -854,7 +872,6 @@
             noise.connect(noiseGain);
             noiseGain.connect(audioContext.destination);
             
-            // Use different frequencies for more varied noise bursts
             noise.frequency.setValueAtTime(Math.random() * 1000 + 500, audioContext.currentTime);
             noiseGain.gain.setValueAtTime(0.05, audioContext.currentTime);
             noiseGain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + 0.3);
@@ -866,35 +883,33 @@
         }
         
         function createFloatingMeme() {
-            // Only create a new emoji if we are below the max limit
-            if (floatingEmojis.length >= MAX_FLOATING_EMOJIS) {
-                cleanupEmojis(); // Clean up oldest if at limit before adding new
+            // --- NEW: Only create if current count is less than MAX_FLOATING_EMOJIS ---
+            if (floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                const meme = document.createElement('div');
+                meme.className = 'floating-memes';
+                meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
+                
+                const size = 20 + Math.random() * 20; 
+                meme.style.fontSize = size + 'px';
+
+                meme.x = Math.random() * (window.innerWidth - size);
+                meme.y = Math.random() * (window.innerHeight - size);
+
+                meme.style.left = meme.x + 'px';
+                meme.style.top = meme.y + 'px';
+
+                meme.speedX = (Math.random() - 0.5) * 3; 
+                meme.speedY = (Math.random() - 0.5) * 3;
+
+                meme.rotation = Math.random() * 360; 
+                meme.rotationSpeed = (Math.random() - 0.5) * 1; 
+                
+                document.body.appendChild(meme);
+                floatingEmojis.push(meme);
+            } else {
+                // If we are at or above the limit, ensure cleanup is called
+                cleanupEmojis();
             }
-
-            const meme = document.createElement('div');
-            meme.className = 'floating-memes';
-            meme.textContent = emojiList[Math.floor(Math.random() * emojiList.length)];
-            
-            // Slightly smaller range for emoji size (20px to 40px)
-            const size = 20 + Math.random() * 20; 
-            meme.style.fontSize = size + 'px';
-
-            // Spawn across the whole screen
-            meme.x = Math.random() * (window.innerWidth - size);
-            meme.y = Math.random() * (window.innerHeight - size);
-
-            meme.style.left = meme.x + 'px';
-            meme.style.top = meme.y + 'px';
-
-            // Keep reduced speed range for slower, more consistent movement
-            meme.speedX = (Math.random() - 0.5) * 3; // Speed between -1.5 and 1.5
-            meme.speedY = (Math.random() - 0.5) * 3;
-
-            meme.rotation = Math.random() * 360; // Initial random rotation
-            meme.rotationSpeed = (Math.random() - 0.5) * 1; // Slower rotation speed
-            
-            document.body.appendChild(meme);
-            floatingEmojis.push(meme);
         }
 
         function animateEmojis() {
@@ -903,7 +918,6 @@
                 meme.y += meme.speedY;
                 meme.rotation += meme.rotationSpeed;
 
-                // Wrap around screen edges
                 if (meme.x > window.innerWidth) meme.x = -meme.offsetWidth;
                 if (meme.x < -meme.offsetWidth) meme.x = window.innerWidth;
                 if (meme.y > window.innerHeight) meme.y = -meme.offsetHeight;
@@ -930,10 +944,45 @@
             }
         }
 
-        // Handle initial popup display on page load (if needed, although acceptGate handles it now)
         window.onload = function() {
-            // No initial popup needed as the gate handles the entry now
+            // Any initial setup on load if needed, but gate handles entry logic
         };
+
+        // --- NEW: Handle window resize to adjust emoji limit dynamically if breakpoint is crossed ---
+        // This is important if a user resizes their browser window from desktop to phone size
+        // or vice-versa while on the page.
+        let resizeTimeout;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                const newWidth = window.innerWidth;
+                const isPhoneSize = newWidth <= 768;
+                let newMaxEmojis;
+
+                // Determine the new maximum based on current state (button clicked or not)
+                // This assumes `MAX_FLOATING_EMOJIS` stores the *current* target.
+                // If you want to strictly enforce initial/button limits on resize,
+                // you might need a flag to track if the button was clicked.
+                if (isPhoneSize) {
+                    // If button was clicked and now resize to phone size, maybe keep 12
+                    // For simplicity, let's reset to initial limit for phones on resize
+                    // unless a more complex state management is implemented.
+                    newMaxEmojis = INITIAL_EMOJI_LIMIT_PHONE;
+                } else {
+                    newMaxEmojis = 15; // Desktop default
+                }
+
+                if (MAX_FLOATING_EMOJIS !== newMaxEmojis) {
+                    MAX_FLOATING_EMOJIS = newMaxEmojis;
+                    console.log("Resized, MAX_FLOATING_EMOJIS adjusted to:", MAX_FLOATING_EMOJIS);
+                    // Immediately clean up or create to meet the new limit
+                    cleanupEmojis(); 
+                    while(floatingEmojis.length < MAX_FLOATING_EMOJIS) {
+                        createFloatingMeme();
+                    }
+                }
+            }, 250); // Debounce resize event
+        });
     </script>
 </body>
 </html>
